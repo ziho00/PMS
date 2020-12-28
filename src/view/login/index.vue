@@ -44,16 +44,23 @@
     </div>
     <div class="regester-tip">
       还没有账号?
-      <a-button type="link">注册账号</a-button>
-      <a-button :style="{ float: 'right', padding: 0 }" type="link"
+      <a-button type="link" @click="handleRegister">注册账号</a-button>
+      <!-- <a-button :style="{ float: 'right', padding: 0 }" type="link"
         >忘记密码?</a-button
-      >
+      > -->
     </div>
   </div>
   <div class="login_bg"></div>
+  <SVGImage1 class="svg_image1" />
+  <RegisterModal
+    :showRegisterModal="showRegisterModal"
+    @setShowRegisterModalState="setShowRegisterModalState"
+  />
 </template>
 
 <script lang="ts">
+import SVGImage1 from "./svg_image1.vue";
+import RegisterModal from "./register.vue";
 import { reactive, ref, getCurrentInstance } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
@@ -61,10 +68,13 @@ export default {
   components: {
     UserOutlined,
     LockOutlined,
+    SVGImage1,
+    RegisterModal,
   },
   setup() {
     const accountInfo = reactive({ account: "", password: "" });
     const errorTips = ref<string>("");
+    const showRegisterModal = ref<boolean>(false);
     const vm = getCurrentInstance();
 
     const handleSubmit = (e) => {
@@ -75,11 +85,22 @@ export default {
       errorTips.value = "";
     };
 
+    const handleRegister = () => {
+      setShowRegisterModalState(true);
+    };
+
+    const setShowRegisterModalState = (val: boolean) => {
+      showRegisterModal.value = val;
+    };
+
     return {
       accountInfo,
       handleSubmit,
       errorTips,
       clearTips,
+      showRegisterModal,
+      handleRegister,
+      setShowRegisterModalState,
     };
   },
 };
@@ -129,6 +150,7 @@ export default {
   padding-bottom: 0;
 }
 .login_bg {
+  overflow: hidden;
   position: absolute;
   min-width: 1200px;
   z-index: -10;
@@ -137,5 +159,14 @@ export default {
   left: 0;
   right: 0;
   background: url("/@public/images/login-page-background.png") no-repeat;
+}
+.svg_image1 {
+  overflow: hidden;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  right: 100px;
+  bottom: 50px;
+  z-index: -8;
 }
 </style>
