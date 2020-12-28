@@ -16,7 +16,7 @@ const axiosInstance: AxiosInstance = axios.create({
 });
 
 /**
- * request 拦截器
+ * 请求拦截器
  */
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig): AxiosRequestConfig => {
@@ -29,7 +29,7 @@ axiosInstance.interceptors.request.use(
 );
 
 /**
- * response 拦截器
+ * 响应拦截器
  */
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
