@@ -7,17 +7,15 @@ import { message } from "ant-design-vue";
 class ServerResponseSuccessManager {
   codeParser(respond: AxiosResponse) {
     const code = respond?.data?.code;
-    const resData = respond?.data?.data;
+    const resData = respond?.data;
     const parser = {
       "0": () => resData,
       "10001": () => {
         this.handleCodeIs10001(resData);
       },
-      default: () => {
-        this.defaultHandle(resData, code);
-      },
+      default: () => this.defaultHandle(resData, code),
     };
-    return parser[code] ? parser[code]() : parser["default"];
+    return parser[code] ? parser[code]() : parser["default"]();
   }
 
   /**
@@ -44,6 +42,7 @@ class ServerResponseSuccessManager {
    */
   defaultHandle(resData, code) {
     console.log(`状态码: ${code} 未设置响应处理`);
+    return Promise.reject(resData);
   }
 }
 

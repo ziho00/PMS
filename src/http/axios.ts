@@ -33,11 +33,11 @@ axiosInstance.interceptors.request.use(
  */
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
-    if (response.data.code === 200) {
+    if (response.data.code === 0) {
       return response;
     }
     // 针对请求成功：返回的 code 码做不同的响应
-    serverResponseSuccessManager.codeParser(response);
+    return serverResponseSuccessManager.codeParser(response);
   },
   (error: AxiosError) => {
     // 针对请求失败：应该提示的错误信息
