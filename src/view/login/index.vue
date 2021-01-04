@@ -17,7 +17,7 @@
           </a-input>
         </a-form-item>
         <a-form-item>
-          <a-input
+          <a-input-password
             :style="{ fontSize: '20px' }"
             v-model:value="accountInfo.password"
             type="password"
@@ -27,7 +27,7 @@
             <template #prefix
               ><LockOutlined style="color: rgba(0, 0, 0, 0.25)"
             /></template>
-          </a-input>
+          </a-input-password>
         </a-form-item>
         <a-form-item>
           <a-button
@@ -64,6 +64,8 @@ import RegisterModal from "./register.vue";
 import { reactive, ref, getCurrentInstance } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default {
   components: {
     UserOutlined,
@@ -76,9 +78,23 @@ export default {
     const errorTips = ref<string>("");
     const showRegisterModal = ref<boolean>(false);
     const vm = getCurrentInstance();
+    const store = useStore();
+    const router = useRouter();
 
-    const handleSubmit = (e) => {
-      console.log(accountInfo.account, accountInfo.password);
+    const handleSubmit = () => {
+      store
+        .dispatch("handleLogin", {
+          account: accountInfo.account,
+          password: accountInfo.password,
+        })
+        .then((res) => {
+          message.success("登录成功!");
+          router.push("/layout");
+        })
+        .catch((err) => {
+          console.log(err);
+          errorTips.value = err.msg;
+        });
     };
 
     const clearTips = () => {

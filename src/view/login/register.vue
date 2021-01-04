@@ -31,14 +31,14 @@
         />
       </a-form-item>
       <a-form-item required label="密码" name="password">
-        <a-input
+        <a-input-password
           v-model:value="userInfo.password"
           type="password"
           autocomplete="off"
         />
       </a-form-item>
       <a-form-item required label="确认密码" name="checkPassword">
-        <a-input
+        <a-input-password
           v-model:value="userInfo.checkPassword"
           type="password"
           autocomplete="off"
@@ -73,7 +73,6 @@ export default {
      * 校验名称
      */
     const checkName = async (rule, value: string) => {
-      console.log(rule);
       if (!value) {
         return Promise.reject("请输入姓名");
       }
@@ -170,11 +169,11 @@ export default {
     };
 
     const rules = {
-      name: [{ validator: checkName.bind(vm), trigger: "change" }],
-      phone: [{ validator: checkPhone.bind(vm), trigger: "change" }],
-      email: [{ validator: checkEmail.bind(vm), trigger: "change" }],
-      password: [{ validator: validatePassword.bind(vm), trigger: "change" }],
-      checkPassword: [{ validator: checkPassword.bind(vm), trigger: "change" }],
+      name: [{ validator: checkName, trigger: "change" }],
+      phone: [{ validator: checkPhone, trigger: "change" }],
+      email: [{ validator: checkEmail, trigger: "change" }],
+      password: [{ validator: validatePassword, trigger: "change" }],
+      checkPassword: [{ validator: checkPassword, trigger: "change" }],
     };
 
     const layout = {
