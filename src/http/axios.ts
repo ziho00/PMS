@@ -10,7 +10,7 @@ import {
   serverResponseFailedManager,
   serverResponseSuccessManager,
 } from "./respond-manager";
-
+import { tokenManager } from "./token-manager";
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: host,
 });
@@ -20,6 +20,10 @@ const axiosInstance: AxiosInstance = axios.create({
  */
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig): AxiosRequestConfig => {
+    let token = tokenManager.getToken();
+    if (token) {
+      config.headers.accessToken = token;
+    }
     return config;
   },
   (error: AxiosError) => {
