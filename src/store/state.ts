@@ -1,9 +1,10 @@
+import { UserInfo } from "../common/gobal";
 export interface State {
-  state: string;
+  userInfo: UserInfo;
 }
 
 const state: State = {
-  state: "",
+  userInfo: {},
 };
 
 export default state;
