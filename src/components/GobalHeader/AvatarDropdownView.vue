@@ -61,8 +61,16 @@ export default {
         title: "信息",
         content: "确定要退出登录吗?",
         onOk: () => {
-          store.dispatch("handleLogout").then(() => {
-            router.push({ path: "/login" });
+          return new Promise((resolve, reject) => {
+            store
+              .dispatch("Logout")
+              .then(() => {
+                resolve();
+                router.push({ path: "/login" });
+              })
+              .catch((err) => {
+                reject(err);
+              });
           });
         },
         onCancel() {},

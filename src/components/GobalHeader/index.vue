@@ -30,7 +30,7 @@ export default {
       name: "",
     });
 
-    userInfo.name = store.state.userInfo?.username;
+    userInfo.name = store.state.user.userInfo?.username;
 
     return {
       showMenu,

@@ -1,11 +1,13 @@
 import { createStore } from "vuex";
-import state from "./state";
-import * as actions from "./actions";
-import mutations from "./mutations";
+import user from "./modules/user";
+import permission from "./modules/permission";
 
 export default createStore({
-  state,
-  mutations: mutations,
-  actions: actions,
-  modules: {},
+  modules: {
+    user,
+    permission,
+  },
+  state: {},
+  mutations: {},
+  actions: {},
 });

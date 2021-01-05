@@ -10,6 +10,15 @@ export interface UserInfo {
   password?: number | string;
   account?: number | string;
   email?: number | string;
-  token?: string;
   username?: string;
+}
+
+export interface RouterMeta {
+  title?: string;
+  icon?: string | HTMLDocument;
+  keepAlive?: boolean;
+  target?: string;
+  hidden?: boolean;
+  hiddenHeaderContent?: boolean;
+  permission?: string[];
 }

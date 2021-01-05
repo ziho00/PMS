@@ -9,7 +9,7 @@ import { host } from "./config";
 import {
   serverResponseFailedManager,
   serverResponseSuccessManager,
-} from "./respond-manager";
+} from "./response-manager";
 import { tokenManager } from "./token-manager";
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: host,
