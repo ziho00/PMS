@@ -18,10 +18,7 @@
         <GobalHeader />
       </a-layout-header>
       <a-layout-content style="margin: 0 16px">
-        <div style="margin: 16px 0 0"></div>
-        <a-card style="minheight: 360px">
-          <router-view />
-        </a-card>
+        <router-view />
       </a-layout-content>
       <a-layout-footer style="text-align: center">
         项目管理系统 ©2021 Created by Zeng Zihao

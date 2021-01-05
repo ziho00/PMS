@@ -55,7 +55,7 @@ export default {
     const handleToSettings = () => {
       router.push({ path: "/account/settings" });
     };
-
+  
     const handleLogout = (e) => {
       Modal.confirm({
         title: "信息",
