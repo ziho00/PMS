@@ -1,4 +1,6 @@
-<template>system info</template>
+<template>
+  <a-card class="page-card"> system info </a-card>
+</template>
 
 <script>
 export default {};

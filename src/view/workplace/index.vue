@@ -1,5 +1,7 @@
 <template>
-  <div>workplace</div>
+  <a-card class="page-card">
+    <div>workplace</div>
+  </a-card>
 </template>
 
 <script>

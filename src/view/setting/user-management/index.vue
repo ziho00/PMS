@@ -1,4 +1,6 @@
-<template>user management</template>
+<template>
+  <a-card class="page-card"> user management </a-card>
+</template>
 
 <script>
 export default {};
