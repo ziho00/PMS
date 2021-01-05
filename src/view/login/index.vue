@@ -63,9 +63,10 @@ import SVGImage1 from "./svg_image1.vue";
 import RegisterModal from "./register.vue";
 import { reactive, ref, getCurrentInstance } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
-import { message } from "ant-design-vue";
+import { notification } from "ant-design-vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { getTimeZone } from "/@/utils";
 export default {
   components: {
     UserOutlined,
@@ -83,16 +84,19 @@ export default {
 
     const handleSubmit = () => {
       store
-        .dispatch("handleLogin", {
+        .dispatch("Login", {
           account: accountInfo.account,
           password: accountInfo.password,
         })
         .then((res) => {
-          message.success("登录成功!");
-          router.push("/layout");
+          const time = new Date().getHours();
+          notification.success({
+            message: `欢迎`,
+            description: `${getTimeZone()}好,欢迎回来`,
+          });
+          router.push("/");
         })
         .catch((err) => {
-          console.log(err);
           errorTips.value = err.msg;
         });
     };

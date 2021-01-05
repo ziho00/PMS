@@ -78,7 +78,7 @@ export default {
       }
       const validNameReg = /^[\u4E00-\u9FA5|a-z|A-Z|\s]+$/;
       if (!validNameReg.test(value)) {
-        return Promise.reject("该姓名不合法，请输入正确的姓名");
+        return Promise.reject("该姓名不合法,请输入中文或英文");
       }
       return Promise.resolve();
     };
