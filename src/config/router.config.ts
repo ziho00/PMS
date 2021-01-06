@@ -71,6 +71,55 @@ export const asyncRouterMap: RouteRecordRaw[] = [
           },
         ],
       },
+      {
+        path: "/user",
+        name: "user",
+        meta: {
+          title: "用户设置",
+          permission: ["basic"],
+          hidden: true,
+        },
+        component: () => import("/@/components/RouteView/index.vue"),
+        children: [
+          {
+            path: "setting",
+            name: "userSetting",
+            component: () => import("/@/view/user/setting.vue"),
+            meta: { title: "用户信息", permission: ["basic"] },
+          },
+        ],
+      },
+      {
+        path: "/404",
+        name: "404",
+        meta: {
+          permission: ["basic"],
+          name: "404页",
+          hidden: true,
+        },
+        component: () => import("/@/view/exception/404.vue"),
+      },
+      {
+        path: "/403",
+        name: "403",
+        meta: {
+          permission: ["basic"],
+          name: "403页",
+
+          hidden: true,
+        },
+        component: () => import("/@/view/exception/403.vue"),
+      },
+      {
+        path: "/500",
+        name: "500",
+        meta: {
+          permission: ["basic"],
+          name: "500页",
+          hidden: true,
+        },
+        component: () => import("/@/view/exception/500.vue"),
+      },
     ],
   },
 ];
@@ -83,24 +132,5 @@ export const constantRouterMap = [
     path: "/login",
     name: "login",
     component: () => import("/@/view/login/index.vue"),
-    hidden: true,
-  },
-  {
-    path: "/404",
-    name: "404",
-    hidden: true,
-    component: () => import("/@/view/exception/404.vue"),
-  },
-  {
-    path: "/403",
-    name: "403",
-    hidden: true,
-    component: () => import("/@/view/exception/403.vue"),
-  },
-  {
-    path: "/500",
-    name: "500",
-    hidden: true,
-    component: () => import("/@/view/exception/500.vue"),
   },
 ];
