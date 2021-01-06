@@ -1,12 +1,13 @@
 <template>
-  <a-dropdown v-if="user && user.name" placement="bottomRight">
+  <a-dropdown v-if="user && user.username" placement="bottomRight">
     <span class="ant-pro-account-avatar">
       <a-avatar
-        size="small"
-        src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
-        class="antd-pro-global-header-index-avatar"
-      />
-      <span class="avatar-name">{{ user.name }}</span>
+        :size="24"
+        :src="user.avatar"
+        :style="{ color: '#fff', backgroundColor: '#69c0ff' }"
+        >{{ user.username }}
+      </a-avatar>
+      <span class="avatar-name">{{ user.username }}</span>
     </span>
     <template v-slot:overlay>
       <a-menu class="ant-pro-drop-down menu" :selected-keys="[]">
@@ -53,9 +54,9 @@ export default {
     const store = useStore();
 
     const handleToSettings = () => {
-      router.push({ path: "/account/settings" });
+      router.push({ path: "/user/setting" });
     };
-  
+
     const handleLogout = (e) => {
       Modal.confirm({
         title: "信息",

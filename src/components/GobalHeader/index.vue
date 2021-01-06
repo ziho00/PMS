@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import AvatarDropdown from "./AvatarDropdownView.vue";
-import { onMounted, ref, reactive } from "vue";
+import { onMounted, ref, reactive, computed } from "vue";
 import { useStore } from "vuex";
 export default {
   name: "RightContent",
@@ -26,11 +26,7 @@ export default {
   setup() {
     const store = useStore();
     const showMenu = ref<boolean>(true);
-    const userInfo = reactive({
-      name: "",
-    });
-
-    userInfo.name = store.state.user.userInfo?.username;
+    const userInfo = computed(() => store.state.user.userInfo);
 
     return {
       showMenu,
@@ -47,20 +43,9 @@ export default {
   margin-left: auto;
   overflow: hidden;
   margin-right: 8px;
-
   .ant-pro-global-header-index-action {
     display: inline-block;
     height: 100%;
-    padding: 0 12px;
-    cursor: pointer;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-
-    box-sizing: border-box;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.025);
-    }
   }
 }
 </style>
