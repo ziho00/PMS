@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, watch } from "vue";
 import MenuItem from "./MenuItem.vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter, useRoute, onBeforeRouteUpdate } from "vue-router";
 export default {
   components: {
     MenuItem,
@@ -27,6 +27,11 @@ export default {
     const router = useRouter();
     const route = useRoute();
     const selectedKeys = ref<Array<string | number>>([]);
+
+    onBeforeRouteUpdate((to) => {
+      const pathName = to.path.split("/").pop();
+      selectedKeys.value = [pathName];
+    });
 
     onBeforeMount(() => {
       selectedKeys.value = [route.path.slice(1)];

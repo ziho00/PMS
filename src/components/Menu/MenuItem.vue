@@ -1,6 +1,6 @@
 <template>
   <a-sub-menu
-    v-if="menuItem.children && menuItem.children.length"
+    v-if="!menuItem.meta.hidden && menuItem.children"
     :key="menuItem.path"
   >
     <template #title>
@@ -15,7 +15,10 @@
       :menuItem="menu"
     />
   </a-sub-menu>
-  <a-menu-item v-else :key="menuItem.path">
+  <a-menu-item
+    v-if="!menuItem.meta.hidden && !menuItem.children"
+    :key="menuItem.path"
+  >
     <Icon :icon="menuItem.meta.icon" />
     <span>{{ menuItem.meta.title }}</span>
   </a-menu-item>
