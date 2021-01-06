@@ -9,6 +9,8 @@ Mock.mock("http://localhost:3000/login", {
     email: "1253416625@qq.com",
     username: "曾梓豪",
     token: "asdadasday12315xasdaadad",
+    avatar:
+      "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
   },
 });
 
@@ -26,9 +28,11 @@ Mock.mock("http://localhost:3000/userInfo", {
     phone: "17727261745",
     email: "1253416625@qq.com",
     username: "曾梓豪",
+    avatar:
+      "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
     token: "asdadasday12315xasdaadad",
     role: {
-      permissions: ["workplace", "project", "setting"],
+      permissions: ["basic", "workplace", "project", "setting"],
     },
   },
 });

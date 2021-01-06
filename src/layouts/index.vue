@@ -8,18 +8,26 @@
       <Menu :menus="menus" />
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
+      <a-layout-header
+        :style="{
+          background: '#fff',
+          padding: '0',
+          boxShadow: '0 1px 4px 0 rgba(0, 21, 41, 0.08)',
+        }"
+      >
         <MenuUnfoldOutlined
           v-if="collapsed"
-          class="trigger"
+          class="trigger ant-pro-global-header-index-action"
           @click="toggleSetCollapsed"
         />
-        <MenuFoldOutlined v-else class="trigger" @click="toggleSetCollapsed" />
+        <MenuFoldOutlined
+          v-else
+          class="trigger ant-pro-global-header-index-action"
+          @click="toggleSetCollapsed"
+        />
         <GobalHeader />
       </a-layout-header>
-      <a-layout-content style="margin: 0 16px">
-        <router-view />
-      </a-layout-content>
+      <router-view />
       <a-layout-footer style="text-align: center">
         项目管理系统 ©2021 Created by Zeng Zihao
       </a-layout-footer>
@@ -76,13 +84,6 @@ export default {
 #components-layout-demo-custom-trigger .trigger {
   font-size: 18px;
   line-height: 64px;
-  padding: 0 24px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-#components-layout-demo-custom-trigger .trigger:hover {
-  color: #1890ff;
 }
 
 #components-layout-demo-custom-trigger .logo {
