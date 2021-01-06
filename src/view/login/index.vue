@@ -55,6 +55,7 @@
   <RegisterModal
     :showRegisterModal="showRegisterModal"
     @setShowRegisterModalState="setShowRegisterModalState"
+    @setAccount="setLoginFormData"
   />
 </template>
 
@@ -82,6 +83,9 @@ export default {
     const store = useStore();
     const router = useRouter();
 
+    /**
+     * 提交登录表单
+     */
     const handleSubmit = () => {
       store
         .dispatch("Login", {
@@ -89,7 +93,6 @@ export default {
           password: accountInfo.password,
         })
         .then((res) => {
-          const time = new Date().getHours();
           notification.success({
             message: `欢迎`,
             description: `${getTimeZone()}好,欢迎回来`,
@@ -101,16 +104,39 @@ export default {
         });
     };
 
+    /**
+     * 清空错误提示信息
+     */
     const clearTips = () => {
       errorTips.value = "";
     };
 
+    /**
+     * 触发注册
+     */
     const handleRegister = () => {
       setShowRegisterModalState(true);
     };
 
+    /**
+     * 显示注册弹窗的状态
+     */
     const setShowRegisterModalState = (val: boolean) => {
       showRegisterModal.value = val;
+    };
+
+    /**
+     * 设置登录信息
+     */
+    const setLoginFormData = ({
+      account,
+      password,
+    }: {
+      account: string;
+      password: string;
+    }) => {
+      accountInfo.account = account;
+      accountInfo.password = password;
     };
 
     return {
@@ -121,6 +147,7 @@ export default {
       showRegisterModal,
       handleRegister,
       setShowRegisterModalState,
+      setLoginFormData,
     };
   },
 };

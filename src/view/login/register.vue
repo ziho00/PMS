@@ -152,6 +152,10 @@ export default {
             loading.value = false;
             message.success("注册成功");
             vm.emit("setShowRegisterModalState", false);
+            vm.emit("setAccount", {
+              account: userInfo.phone,
+              password: userInfo.password,
+            });
             (vm.refs.registerForm as any).resetFields();
           }, 1000);
         })
