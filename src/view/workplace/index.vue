@@ -11,7 +11,7 @@
             <a-avatar
               :size="72"
               :src="userInfo.avatar"
-              :style="{ color: '#fff', backgroundColor: '#69c0ff' }"
+              :style="{ color: '#fff', backgroundColor: 'var(--avatar-bg)' }"
               >{{ userInfo.username }}
             </a-avatar>
           </div>
@@ -46,21 +46,16 @@
           style="margin-bottom: 24px"
           :bordered="false"
           title="我的项目"
+          :loading="loading.projects"
           :body-style="{ padding: 0 }"
         >
           <template #extra>
-            <a href="#" @click="toProjectPage">全部项目</a>
+            <a @click="toProjectPage">全部项目</a>
           </template>
           <div>
             <a-card-grid :key="i" v-for="(item, i) in projects">
               <a-card :bordered="false">
-                <a-card-meta
-                  :description="
-                    item.desc.length > 24
-                      ? item.desc.slice(0, 24) + '...'
-                      : item.desc
-                  "
-                >
+                <a-card-meta>
                   <template #title>
                     <a-avatar :size="24" :src="item.picUrl">{{
                       item.name
@@ -72,9 +67,15 @@
                       >{{ item.name }}
                     </a>
                   </template>
+                  <template #description>
+                    {{ item.desc }}
+                  </template>
                 </a-card-meta>
               </a-card>
             </a-card-grid>
+            <div v-if="projects.length === 0" :style="{ margin: '15px 0' }">
+              <a-empty description="暂无项目" />
+            </div>
           </div>
         </a-card>
 
@@ -82,7 +83,10 @@
           :tab-list="workplaceTabs"
           :active-tab-key="activeTabKey"
           @tabChange="changeTab"
+          :loading="loading.todo"
+          :body-style="{ padding: '5px 15px' }"
         >
+          <TasksTable :activeTabKey="activeTabKey" />
         </a-card>
       </a-col>
       <a-col
@@ -93,8 +97,23 @@
         :sm="24"
         :xs="24"
       >
-        <a-card title="工作指数" :bordered="false" :body-style="{ padding: 0 }">
-          xxx
+        <a-card
+          class="work-state-margin-top"
+          title="工作指数"
+          :bordered="false"
+          :body-style="{ padding: '15px' }"
+          :loading="loading.workState"
+        >
+        </a-card>
+
+        <a-card
+          title="消息"
+          :bordered="false"
+          :style="{ marginTop: '24px' }"
+          :body-style="{ padding: '15px' }"
+          :loading="loading.workState"
+        >
+          <NewsList />
         </a-card>
       </a-col>
     </a-row>
@@ -103,9 +122,12 @@
 
 <script lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { computed, ref } from "vue";
+import { computed, ref, onBeforeMount, reactive } from "vue";
 import { useStore } from "vuex";
 import { getTimeZone } from "/@/utils";
+import { api } from "/@/http/api";
+import TasksTable from "./TaskTable.vue";
+import NewsList from "./NewsList.vue";
 
 const routes = [
   {
@@ -134,39 +156,43 @@ const workplaceTabs = [
 ];
 
 export default {
+  components: {
+    TasksTable,
+    NewsList,
+  },
   setup() {
     const route = useRoute();
     const router = useRouter();
     const timeZone = getTimeZone();
     const store = useStore();
-    const userInfo = computed(() => store.state.user.userInfo);
+
     const activeTabKey = ref<string>("my_todo");
-    const projects = ref<any[]>([
-      {
-        picUrl:
-          "https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png",
-        name: "项目名",
-        desc: "项目描述项目描述项目描述项目描述项目描述项目描述",
-      },
-      {
-        picUrl:
-          "https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png",
-        name: "项目名",
-        desc: "项目描述项目描述项目描述项目描述项目描述项目描述项目描述",
-      },
-      {
-        picUrl:
-          "https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png",
-        name: "项目名",
-        desc: "项目描述项目描述项目描述项目描述项目描述项目描述项目描述",
-      },
-      {
-        picUrl:
-          "https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png",
-        name: "项目名",
-        desc: "项目描述项目描述项目描述项目描述项目描述项目描述项目描述",
-      },
-    ]);
+    const projects = ref<Array<any>>([]);
+    const tasksTableData = reactive({
+      dataSource: [],
+      page: 1,
+      pageSize: 10,
+      total: 0,
+    });
+    const loading = reactive({
+      projects: false,
+      todo: false,
+      workState: false,
+      news: false,
+    });
+
+    const userInfo = computed(() => store.state.user.userInfo);
+
+    onBeforeMount(async () => {
+      setLoadingStatus("projects", true);
+
+      // 获取项目数据
+      const projectsRes = await api.workplace.getProjects();
+      projects.value = projectsRes.data || [];
+      setLoadingStatus("projects", false);
+
+      // 获取工作指数数据
+    });
 
     const toProjectPage = () => {
       router.push("/project");
@@ -180,6 +206,10 @@ export default {
       activeTabKey.value = key;
     };
 
+    const setLoadingStatus = (key: string, value: boolean) => {
+      loading[key] = !!value;
+    };
+
     return {
       timeZone,
       userInfo,
@@ -190,6 +220,9 @@ export default {
       toProjectPage,
       projects,
       toProjectDetail,
+      loading,
+      tasksTableData,
+      setLoadingStatus,
     };
   },
 };
@@ -282,5 +315,14 @@ export default {
       color: rgb(24, 144, 255);
     }
   }
+}
+.ant-card-meta-description {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: o-ellipsis-lastline;
+  height: 44px;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 </style>
