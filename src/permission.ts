@@ -17,8 +17,7 @@ router.beforeEach((to, from, next) => {
       // 判断是否获取了用户角色/权限
       if (!store.state.user.role.permissions) {
         store.dispatch("GetUserInfo").then((res) => {
-          const result = res.data;
-          const role = result.data.role;
+          const role = res.data.role;
           store.dispatch("GenerateRoutes", { role }).then(() => {
             // 添加动态路由
             store.state.permission.asyncRoutes.map((route) => {
