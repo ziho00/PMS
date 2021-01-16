@@ -60,6 +60,9 @@ export default {
     },
   },
   setup(props) {
+    // 当前 vue 实例
+    const vm = getCurrentInstance();
+
     const loading = ref<boolean>(false);
     const userInfo = reactive({
       phone: "",
@@ -136,9 +139,6 @@ export default {
       }
       return Promise.resolve();
     };
-
-    // 当前 vue 实例
-    const vm = getCurrentInstance();
 
     /**
      * 提交注册信息

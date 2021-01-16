@@ -36,7 +36,7 @@ const actions: ActionTree<State, any> = {
       api.user
         .login({ account, password })
         .then((res) => {
-          const userInfo = res.data.data;
+          const userInfo = res.data;
           tokenManager.setToken(userInfo.token);
           resolve(userInfo);
         })
@@ -75,7 +75,7 @@ const actions: ActionTree<State, any> = {
       api.user
         .getUserInfo()
         .then((res) => {
-          const userInfo = res.data.data;
+          const userInfo = res.data;
           commit("SET_USER_INFO", userInfo);
           commit("SET_ROLE", userInfo.role);
           resolve(res);
