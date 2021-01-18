@@ -61,6 +61,13 @@ export const asyncRouterMap: RouteRecordRaw[] = [
             meta: { title: "角色管理", permission: ["setting"] },
           },
           {
+            path: "authority",
+            name: "authoritySetting",
+            component: () =>
+              import("/@/view/setting/authority-management/index.vue"),
+            meta: { title: "权限项管理", permission: ["setting"] },
+          },
+          {
             path: "system-info",
             name: "systemInfoSetting",
             component: () => import("/@/view/setting/system-info/index.vue"),
