@@ -3,8 +3,8 @@
     style="border: 1px solid rgb(235, 237, 240)"
     title="用户管理"
     :breadcrumb="{ routes }"
-  >
-  </a-page-header>
+  />
+
   <a-card class="page-card">
     <z-query-form
       :model="queryFormData"
@@ -13,6 +13,7 @@
       @toggleShowMore="toggleShowMore"
       :searching="queryLoading.search"
       :reseting="queryLoading.reset"
+      more
     >
       <z-query-form-item label="用户名">
         <a-input v-model:value="queryFormData.username" placeholder="用户名" />
@@ -90,9 +91,10 @@
       </a-form-item>
       <a-form-item label="岗位/角色" name="role">
         <a-select
-          v-model:value="userInfo.role.role_id"
+          :value="userInfo.role.role_id"
           style="width: 250px"
           :loading="selectorLoading"
+          @change="handleChangeSelector"
         >
           <a-select-option
             v-for="role in roles"
@@ -113,6 +115,7 @@ import ZQueryFormItem from "/@/components/QueryForm/QueryFormItem.vue";
 import { PlusOutlined } from "@ant-design/icons-vue";
 import { api } from "/@/http/api";
 import user from "/@/store/modules/user";
+import { useModal, useQueryForm, useTable } from "./hook";
 
 const routes = [
   {
@@ -129,58 +132,6 @@ const routes = [
   },
 ];
 
-const columns = [
-  {
-    title: "#",
-    dataIndex: "user_id",
-    key: "user_id",
-    fixed: "left",
-    width: 120,
-  },
-  {
-    title: "用户名",
-    dataIndex: "username",
-    key: "username",
-    fixed: "left",
-    width: 200,
-  },
-  {
-    title: "头像",
-    dataIndex: "avatarUrl",
-    key: "avatarUrl",
-    slots: { customRender: "avatar" },
-    fixed: "left",
-    width: 150,
-  },
-  {
-    title: "岗位/角色",
-    dataIndex: "role",
-    key: "role",
-    slots: { customRender: "role" },
-  },
-  {
-    title: "手机号码",
-    dataIndex: "phone",
-    key: "phone",
-  },
-  {
-    title: "邮箱地址",
-    dataIndex: "email",
-    key: "email",
-    ellipsis: true,
-  },
-  {
-    title: "注册时间",
-    dataIndex: "createTime",
-    key: "createTime",
-  },
-  {
-    title: "操作",
-    dataIndex: "operation",
-    slots: { customRender: "operation" },
-  },
-];
-
 export default {
   name: "UserManagement",
   components: {
@@ -189,35 +140,38 @@ export default {
     PlusOutlined,
   },
   setup() {
-    const dataSource = ref<Array<any>>([]);
-    const roles = ref<Array<any>>([]);
-    const loading = ref<boolean>(false);
-    const visible = ref<boolean>(false);
-    const confirmLoading = ref<boolean>(false);
-    const selectorLoading = ref<boolean>(false);
+    const {
+      queryLoading,
+      queryFormData,
+      handleSearch,
+      handleReset,
+      toggleShowMore,
+    } = useQueryForm();
 
-    const queryLoading = reactive({ search: false, reset: false });
-    const queryFormData = reactive({ roles: [], username: "", phone: "" });
-    const pagination = reactive({
-      current: 1,
-      pageSize: 10,
-      defaultPageSize: 10,
-      total: 0,
-      showSizeChanger: true,
-    });
-    const userInfo = reactive({
-      user_id: "",
-      username: "",
-      phone: "",
-      email: "",
-      avatarUrl: "",
-      role: null,
-    });
+    const {
+      columns,
+      dataSource,
+      pagination,
+      loading,
+      handleTableChange,
+    } = useTable(queryFormData);
+
+    const {
+      roles,
+      getRoles,
+      userInfo,
+      visible,
+      confirmLoading,
+      handleSubmit,
+      selectorLoading,
+      handleChangeSelector,
+    } = useModal();
 
     onBeforeMount(() => {
       getUsers();
     });
 
+    // 获取用户列表信息
     const getUsers = async () => {
       const res = await api.userManagement.getUsers();
       pagination.total = res.data.total;
@@ -225,54 +179,13 @@ export default {
       console.log(dataSource.value);
     };
 
-    const getRoles = async () => {
-      selectorLoading.value = true;
-      const res = await api.roleManagement.getRoles();
-      roles.value = res.data.data;
-      selectorLoading.value = false;
-    };
-
-    // 查询项目
-    const handleSearch = (formData) => {
-      queryLoading.search = true;
-      console.log(formData);
-      setTimeout(() => {
-        queryLoading.search = false;
-      }, 1000);
-    };
-
-    // 重置搜索表单数据
-    const handleReset = () => {
-      queryLoading.reset = true;
-      queryFormData.username = "";
-      queryFormData.phone = "";
-      queryFormData.roles = [];
-      console.log(queryFormData);
-      setTimeout(() => {
-        queryLoading.reset = false;
-      }, 1000);
-    };
-
-    const toggleShowMore = (show: boolean) => {
-      if (!show) {
-        queryFormData.roles = [];
-      }
-    };
-
-    const handleTableChange = () => {
-      console.log(queryFormData, pagination);
-    };
-
+    // 点击 Table 编辑按钮
     const handleEdit = async (record) => {
       Object.keys(userInfo).map((key) => {
         userInfo[key] = record[key];
       });
       visible.value = true;
       await getRoles();
-    };
-
-    const handleSubmit = () => {
-      console.log(userInfo);
     };
 
     return {
@@ -294,6 +207,7 @@ export default {
       confirmLoading,
       roles,
       selectorLoading,
+      handleChangeSelector,
     };
   },
 };
