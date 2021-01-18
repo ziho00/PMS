@@ -13,7 +13,7 @@
           @click="onReset"
           >重置</a-button
         >
-        <a-button type="link" @click="toggleShowMore">
+        <a-button v-if="more" type="link" @click="toggleShowMore">
           {{ showMore ? "收起" : "展开" }}
           <DownOutlined v-show="!showMore" />
           <UpOutlined v-show="showMore"
