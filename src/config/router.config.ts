@@ -34,7 +34,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
           icon: ReadOutlined,
           permission: ["project"],
         },
-        component: () => import("/@/view/project-management/index.vue"),
+        component: () => import("/@/view/project-management/list.vue"),
       },
       {
         path: "/setting",
