@@ -38,6 +38,7 @@
       </div>
     </div>
   </a-page-header>
+
   <div class="page-content">
     <a-row :gutter="24">
       <a-col :xl="16" :lg="24" :md="24" :sm="24" :xs="24">
@@ -54,7 +55,7 @@
           </template>
           <div>
             <a-card-grid :key="i" v-for="(item, i) in projects">
-              <a-card :bordered="false">
+              <a-card :bordered="false" :body-style="{ padding: 0 }">
                 <a-card-meta>
                   <template #title>
                     <a-avatar :size="24" :src="item.picUrl">{{
@@ -303,9 +304,7 @@ export default {
 .page-content {
   margin: 24px 24px 0;
 }
-.ant-card-body {
-  padding: 0;
-}
+
 .ant-card-meta-title {
   .project-name {
     color: #555;

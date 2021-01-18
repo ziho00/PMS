@@ -111,6 +111,7 @@ export default {
       pageSize: 10,
       defaultPageSize: 10,
       total: 0,
+      showSizeChanger: true,
     });
 
     onBeforeMount(async () => {
@@ -152,9 +153,11 @@ export default {
       loading.value = false;
     };
 
-    // 页码切换
+    // 页码器变更
     const handleTableChange = (pager, filters, sorter) => {
       pagination.current = pager.current;
+      pagination.pageSize = pager.pageSize;
+      console.log(pagination);
       toggleGetTodoData();
     };
 
