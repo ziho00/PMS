@@ -252,3 +252,120 @@ Mock.mock("http://localhost:3000/task/0", {
     ],
   },
 });
+
+Mock.mock("http://localhost:3000/users/all", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    start: 0,
+    length: 5,
+    total: 5,
+    data: [
+      {
+        user_id: 10011,
+        username: "曾梓豪",
+        phone: "17727261745",
+        email: "1253416625@qq.com",
+        avatarUrl: "",
+        role: {
+          role_id: 1011,
+          role_name: "研发人员",
+        },
+        createTime: "2020-12-31 23:59:59",
+      },
+      {
+        user_id: 10012,
+        username: "Jack Ma",
+        phone: "13121161641",
+        email: "JackMa@163.com",
+        avatarUrl: "",
+        role: {
+          role_id: 1012,
+          role_name: "项目管理人员",
+        },
+        createTime: "2021-01-01 23:59:59",
+      },
+      {
+        user_id: 10013,
+        username: "Team leader",
+        phone: "131221611870",
+        email: "131221611870@163.com",
+        avatarUrl: "",
+        role: {
+          role_id: 1012,
+          role_name: "项目管理人员",
+        },
+        createTime: "2021-01-01 22:55:30",
+      },
+      {
+        user_id: 10014,
+        username: "Michelle Perez",
+        phone: "135121311882",
+        email: "MichellePerez@email.com",
+        avatarUrl: "",
+        role: {
+          role_id: 1011,
+          role_name: "研发人员",
+        },
+        createTime: "2020-12-31 23:59:59",
+      },
+      {
+        user_id: 1,
+        username: "admin",
+        phone: "",
+        email: "",
+        avatarUrl: "",
+        role: {
+          role_id: 1,
+          role_name: "超级管理员",
+        },
+        createTime: "2020-12-31 23:59:59",
+      },
+    ],
+  },
+});
+
+Mock.mock("http://localhost:3000/users/1", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    user_id: 1,
+    username: "admin",
+    phone: "",
+    email: "",
+    avatarUrl: "",
+    role: {
+      role_id: 1,
+      role_name: "超级管理员",
+    },
+    createTime: "2020-12-31 23:59:59",
+  },
+});
+
+Mock.mock("http://localhost:3000/roles/all", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    start: 0,
+    length: 4,
+    total: 4,
+    data: [
+      {
+        role_id: 1,
+        role_name: "超级管理员",
+      },
+      {
+        role_id: 1011,
+        role_name: "研发人员",
+      },
+      {
+        role_id: 1012,
+        role_name: "项目管理人员",
+      },
+      {
+        role_id: 1013,
+        role_name: "系统管理人员",
+      },
+    ],
+  },
+});
