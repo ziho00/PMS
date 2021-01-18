@@ -71,7 +71,64 @@
     :confirm-loading="confirmLoading"
     @ok="handleSubmit"
   >
-    <ModalForm ref="modalForm"></ModalForm>
+    <a-form
+      :rules="rules"
+      ref="projectForm"
+      :model="projectInfo"
+      :label-col="{ span: 5 }"
+      :wrapper-col="{ span: 16 }"
+    >
+      <a-form-item ref="logo" label="项目 LOGO" name="logo">
+        <a-upload
+          v-model:fileList="projectInfo.logoFile"
+          name="avatar"
+          list-type="picture-card"
+          class="avatar-uploader"
+          :show-upload-list="false"
+          action=""
+          :before-upload="beforeUpload"
+          @change="handleChange"
+        >
+          <img
+            v-if="projectInfo.logoUrl"
+            :src="projectInfo.logoUrl"
+            alt="avatar"
+          />
+          <div v-else>
+            <loading-outlined v-if="uploading" />
+            <plus-outlined v-else />
+            <div class="ant-upload-text">选择图片</div>
+          </div>
+        </a-upload>
+      </a-form-item>
+      <a-form-item required ref="name" label="项目名" name="name">
+        <a-input
+          v-model:value="projectInfo.name"
+          placeholder="请输入项目名称"
+        />
+      </a-form-item>
+      <a-form-item required ref="planDate" label="项目日期" name="planDate">
+        <a-range-picker
+          :disabled-date="disabledDate"
+          v-model:value="projectInfo.planDate"
+          :show-time="{
+            hideDisabledOptions: true,
+            defaultValue: [
+              moment('00:00:00', 'HH:mm:ss'),
+              moment('23:59:59', 'HH:mm:ss'),
+            ],
+          }"
+          format="YYYY-MM-DD HH:mm:ss"
+        />
+      </a-form-item>
+      <a-form-item ref="desc" label="项目描述" name="desc">
+        <a-textarea
+          v-model:value="projectInfo.desc"
+          placeholder="请输入项目描述"
+          :rows="4"
+        />
+      </a-form-item>
+    </a-form>
   </a-modal>
 </template>
 
@@ -80,9 +137,10 @@ import { reactive, ref, onBeforeMount, getCurrentInstance } from "vue";
 import ZQueryForm from "/@/components/QueryForm/index.vue";
 import ZQueryFormItem from "/@/components/QueryForm/QueryFormItem.vue";
 import Ellipsis from "/@/components/Ellipsis/index.vue";
-import ModalForm from "./Form.vue";
-import { PlusOutlined } from "@ant-design/icons-vue";
+import { PlusOutlined, LoadingOutlined } from "@ant-design/icons-vue";
 import { api } from "/@/http/api";
+import { useModal, useQueryForm, useForm } from "./hook";
+
 const routes = [
   {
     path: "/",
@@ -93,29 +151,44 @@ const routes = [
     breadcrumbName: "项目列表",
   },
 ];
+
 export default {
   components: {
     ZQueryForm,
     ZQueryFormItem,
     Ellipsis,
     PlusOutlined,
-    ModalForm,
+    LoadingOutlined,
   },
   setup() {
-    const vm = getCurrentInstance();
+    const {
+      queryLoading,
+      queryFormData,
+      handleSearch,
+      handleReset,
+    } = useQueryForm();
 
-    const queryFormData = reactive({ projectName: "", createUserName: "" });
-    const queryLoading = reactive({ search: false, reset: false });
+    const { visible, confirmLoading } = useModal();
+
+    const {
+      rules,
+      projectInfo,
+      beforeUpload,
+      handleChange,
+      disabledDate,
+      uploading,
+      moment,
+    } = useForm();
+    const vm = getCurrentInstance();
 
     const loading = ref<boolean>(false);
     const data = ref<Array<any>>([]);
-    const visible = ref<boolean>(false);
-    const confirmLoading = ref<boolean>(false);
 
     onBeforeMount(() => {
       getProjects();
     });
 
+    // 获取项目列表
     const getProjects = async () => {
       console.log(queryFormData);
       const res = await api.project.getProjects();
@@ -123,47 +196,27 @@ export default {
       console.log(res.data);
     };
 
-    // 查询项目
-    const handleSearch = (formData) => {
-      queryLoading.search = true;
-      console.log(formData);
-      setTimeout(() => {
-        queryLoading.search = false;
-      }, 1000);
-    };
-
-    // 重置搜索表单数据
-    const handleReset = () => {
-      queryLoading.reset = true;
-      queryFormData.projectName = "";
-      queryFormData.createUserName = "";
-      console.log(queryFormData);
-      setTimeout(() => {
-        queryLoading.reset = false;
-      }, 1000);
-    };
-
     // 创建项目
     const handleCreateProject = () => {
       visible.value = true;
     };
 
+    // 跳转到项目页
+    const toProjectPage = (record) => {
+      console.log(record);
+    };
+
     // 提交创建
     const handleSubmit = () => {
       confirmLoading.value = true;
-      const formData = (vm.refs.modalForm as any).projectInfo;
-      const form = (vm.refs.modalForm as any).$refs.ruleForm;
+      const formData = projectInfo;
+      const form = vm.refs.projectForm as any;
       console.log(formData);
       setTimeout(() => {
         confirmLoading.value = false;
         form.resetFields();
         visible.value = false;
       }, 1000);
-    };
-
-    // 跳转到项目页
-    const toProjectPage = (record) => {
-      console.log(record);
     };
 
     return {
@@ -179,6 +232,13 @@ export default {
       confirmLoading,
       handleSubmit,
       toProjectPage,
+      rules,
+      projectInfo,
+      beforeUpload,
+      handleChange,
+      disabledDate,
+      uploading,
+      moment,
     };
   },
 };
