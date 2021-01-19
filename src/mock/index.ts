@@ -369,3 +369,33 @@ Mock.mock("http://localhost:3000/roles/all", {
     ],
   },
 });
+
+Mock.mock("http://localhost:3000/authority/all", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    start: 0,
+    length: 3,
+    total: 3,
+    data: [
+      {
+        authority_id: 1,
+        name: "工作台页",
+        token: "WORKPLACE",
+        createTime: "2021-01-15 15:55:34",
+      },
+      {
+        authority_id: 2,
+        name: "项目页",
+        token: "PROJECT",
+        createTime: "2021-01-15 15:55:34",
+      },
+      {
+        authority_id: 3,
+        name: "设置页",
+        token: "SETTING",
+        createTime: "2021-01-15 15:55:34",
+      },
+    ],
+  },
+});
