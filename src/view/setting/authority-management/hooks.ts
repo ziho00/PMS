@@ -113,4 +113,38 @@ function useModal() {
   };
 }
 
-export { useModal, useQueryForm, useTable };
+function useForm() {
+  const rules = {
+    name: [
+      {
+        required: true,
+        message: "请输入权限项名称",
+        trigger: "blur",
+      },
+      {
+        min: 3,
+        max: 32,
+        message: "长度应在 3 到 32 之间",
+        trigger: "blur",
+      },
+    ],
+    token: [
+      {
+        required: true,
+        message: "请输入权限项秘钥",
+        trigger: "blur",
+      },
+      {
+        min: 3,
+        max: 32,
+        message: "长度应在 3 到 32 之间",
+        trigger: "blur",
+      },
+    ],
+  };
+  return {
+    rules,
+  };
+}
+
+export { useModal, useQueryForm, useTable, useForm };

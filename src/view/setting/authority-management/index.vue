@@ -75,6 +75,7 @@
   >
     <a-form
       ref="userForm"
+      :rules="rules"
       :model="authorityItem"
       :label-col="{ span: 5 }"
       :wrapper-col="{ span: 16 }"
@@ -97,7 +98,7 @@ import { reactive, ref, onBeforeMount, createVNode } from "vue";
 import ZQueryForm from "/@/components/QueryForm/index.vue";
 import ZQueryFormItem from "/@/components/QueryForm/QueryFormItem.vue";
 import { api } from "/@/http/api";
-import { useModal, useQueryForm, useTable } from "./hooks";
+import { useModal, useQueryForm, useTable, useForm } from "./hooks";
 import { Modal } from "ant-design-vue";
 import {
   PlusOutlined,
@@ -149,6 +150,8 @@ export default {
       handleSubmit,
     } = useModal();
 
+    const { rules } = useForm();
+
     onBeforeMount(async () => {
       await refresh();
     });
@@ -157,6 +160,7 @@ export default {
     const handleSearch = (formData) => {
       queryLoading.search = true;
       console.log(formData);
+      refresh();
       setTimeout(() => {
         queryLoading.search = false;
       }, 1000);
@@ -167,6 +171,7 @@ export default {
       queryLoading.reset = true;
       queryFormData.name = "";
       console.log(queryFormData);
+      refresh();
       setTimeout(() => {
         queryLoading.reset = false;
       }, 1000);
@@ -231,6 +236,7 @@ export default {
       authorityItem,
       isEdit,
       handleSubmit,
+      rules,
     };
   },
 };
