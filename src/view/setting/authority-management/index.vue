@@ -97,7 +97,7 @@ import { reactive, ref, onBeforeMount, createVNode } from "vue";
 import ZQueryForm from "/@/components/QueryForm/index.vue";
 import ZQueryFormItem from "/@/components/QueryForm/QueryFormItem.vue";
 import { api } from "/@/http/api";
-import { useForm, useModal, useQueryForm, useTable } from "./hooks";
+import { useModal, useQueryForm, useTable } from "./hooks";
 import { Modal } from "ant-design-vue";
 import {
   PlusOutlined,
@@ -148,8 +148,6 @@ export default {
       isEdit,
       handleSubmit,
     } = useModal();
-
-    const {} = useForm();
 
     onBeforeMount(async () => {
       await refresh();

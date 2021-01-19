@@ -113,8 +113,4 @@ function useModal() {
   };
 }
 
-function useForm() {
-  return {};
-}
-
-export { useForm, useModal, useQueryForm, useTable };
+export { useModal, useQueryForm, useTable };
