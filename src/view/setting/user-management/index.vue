@@ -23,7 +23,20 @@
       </z-query-form-item>
       <template #more="{ show }">
         <z-query-form-item v-show="show" label="用户角色">
-          <a-input v-model:value="queryFormData.phone" placeholder="手机号码" />
+          <a-select
+            mode="multiple"
+            :value="queryFormData.roles"
+            style="width: 250px"
+            :loading="selectorLoading"
+            @change="handleChangeSelectRoles"
+          >
+            <a-select-option
+              v-for="role in roles"
+              :key="role.role_id"
+              :value="role.role_id"
+              >{{ role.role_name }}</a-select-option
+            >
+          </a-select>
         </z-query-form-item>
       </template>
     </z-query-form>
@@ -56,12 +69,13 @@
 
   <!-- 编辑用户信息 Modal -->
   <a-modal
-    :title="`编辑用户【${userInfo.username}】`"
+    :title="`编辑用户【${userInfo.user_id}】`"
     width="650px"
     v-model:visible="visible"
     :confirm-loading="confirmLoading"
     @ok="handleSubmit"
-    ><a-form
+  >
+    <a-form
       ref="userForm"
       :model="userInfo"
       :label-col="{ span: 5 }"
@@ -112,10 +126,8 @@
 import { reactive, ref, onBeforeMount } from "vue";
 import ZQueryForm from "/@/components/QueryForm/index.vue";
 import ZQueryFormItem from "/@/components/QueryForm/QueryFormItem.vue";
-import { PlusOutlined } from "@ant-design/icons-vue";
 import { api } from "/@/http/api";
-import user from "/@/store/modules/user";
-import { useModal, useQueryForm, useTable } from "./hook";
+import { useModal, useQueryForm, useTable } from "./hooks";
 
 const routes = [
   {
@@ -137,15 +149,14 @@ export default {
   components: {
     ZQueryForm,
     ZQueryFormItem,
-    PlusOutlined,
   },
   setup() {
+    const roles = ref<Array<any>>([]);
     const {
       queryLoading,
       queryFormData,
-      handleSearch,
-      handleReset,
       toggleShowMore,
+      handleChangeSelectRoles,
     } = useQueryForm();
 
     const {
@@ -154,29 +165,52 @@ export default {
       pagination,
       loading,
       handleTableChange,
+      refresh,
     } = useTable(queryFormData);
 
     const {
-      roles,
-      getRoles,
       userInfo,
       visible,
       confirmLoading,
       handleSubmit,
       selectorLoading,
       handleChangeSelector,
-    } = useModal();
+    } = useModal(roles);
 
-    onBeforeMount(() => {
-      getUsers();
+    // 获取角色信息
+    const getRoles = async () => {
+      selectorLoading.value = true;
+      const res = await api.roleManagement.getRoles();
+      roles.value = res.data.data;
+      selectorLoading.value = false;
+    };
+
+    onBeforeMount(async () => {
+      await refresh();
+      await getRoles();
     });
 
-    // 获取用户列表信息
-    const getUsers = async () => {
-      const res = await api.userManagement.getUsers();
-      pagination.total = res.data.total;
-      dataSource.value = res.data.data;
-      console.log(dataSource.value);
+    // 查询项目
+    const handleSearch = (formData) => {
+      queryLoading.search = true;
+      console.log(formData);
+      refresh();
+      setTimeout(() => {
+        queryLoading.search = false;
+      }, 1000);
+    };
+
+    // 重置搜索表单数据
+    const handleReset = () => {
+      queryLoading.reset = true;
+      queryFormData.username = "";
+      queryFormData.phone = "";
+      queryFormData.roles = [];
+      console.log(queryFormData);
+      refresh(true);
+      setTimeout(() => {
+        queryLoading.reset = false;
+      }, 1000);
     };
 
     // 点击 Table 编辑按钮
@@ -185,7 +219,6 @@ export default {
         userInfo[key] = record[key];
       });
       visible.value = true;
-      await getRoles();
     };
 
     return {
@@ -208,6 +241,7 @@ export default {
       roles,
       selectorLoading,
       handleChangeSelector,
+      handleChangeSelectRoles,
     };
   },
 };
