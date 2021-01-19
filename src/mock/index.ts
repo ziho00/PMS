@@ -353,18 +353,26 @@ Mock.mock("http://localhost:3000/roles/all", {
       {
         role_id: 1,
         role_name: "超级管理员",
+        promission: ["WORKPLACE", "PROJECT", "SETTING"],
+        createTime: "2021-01-15 15:55:34",
       },
       {
         role_id: 1011,
         role_name: "研发人员",
+        promission: ["WORKPLACE", "PROJECT"],
+        createTime: "2021-01-15 15:55:34",
       },
       {
         role_id: 1012,
         role_name: "项目管理人员",
+        promission: ["WORKPLACE", "PROJECT"],
+        createTime: "2021-01-15 15:55:34",
       },
       {
         role_id: 1013,
         role_name: "系统管理人员",
+        promission: ["WORKPLACE", "PROJECT", "SETTING"],
+        createTime: "2021-01-15 15:55:34",
       },
     ],
   },
