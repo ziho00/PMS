@@ -139,7 +139,7 @@ import ZQueryFormItem from "/@/components/QueryForm/QueryFormItem.vue";
 import Ellipsis from "/@/components/Ellipsis/index.vue";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons-vue";
 import { api } from "/@/http/api";
-import { useModal, useQueryForm, useForm } from "./hook";
+import { useModal, useQueryForm, useForm } from "./hooks";
 
 const routes = [
   {
