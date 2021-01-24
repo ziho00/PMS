@@ -134,6 +134,7 @@
 
 <script lang="ts">
 import { reactive, ref, onBeforeMount, getCurrentInstance } from "vue";
+import { useRouter } from "vue-router";
 import ZQueryForm from "/@/components/QueryForm/index.vue";
 import ZQueryFormItem from "/@/components/QueryForm/QueryFormItem.vue";
 import Ellipsis from "/@/components/Ellipsis/index.vue";
@@ -161,6 +162,9 @@ export default {
     LoadingOutlined,
   },
   setup() {
+    const vm = getCurrentInstance();
+    const router = useRouter();
+
     const {
       queryLoading,
       queryFormData,
@@ -179,7 +183,6 @@ export default {
       uploading,
       moment,
     } = useForm();
-    const vm = getCurrentInstance();
 
     const loading = ref<boolean>(false);
     const data = ref<Array<any>>([]);
@@ -203,7 +206,7 @@ export default {
 
     // 跳转到项目页
     const toProjectPage = (record) => {
-      console.log(record);
+      router.push(`/${record.project_id}`);
     };
 
     // 提交创建
