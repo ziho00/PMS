@@ -200,7 +200,7 @@ export default {
     };
 
     const toProjectDetail = (project) => {
-      console.log(project);
+      router.push(`/${project.project_id}`);
     };
 
     const changeTab = (key: string) => {
