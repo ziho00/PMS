@@ -22,7 +22,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
         meta: {
           title: "工作台",
           icon: LaptopOutlined,
-          permission: ["workplace"],
+          permission: ["WORKPLACE"],
         },
         component: () => import("/@/view/workplace/index.vue"),
       },
@@ -32,7 +32,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
         meta: {
           title: "项目",
           icon: ReadOutlined,
-          permission: ["project"],
+          permission: ["PROJECT"],
         },
         component: () => import("/@/view/project-management/index.vue"),
       },
@@ -42,10 +42,83 @@ export const asyncRouterMap: RouteRecordRaw[] = [
         meta: {
           title: "项目信息",
           hidden: true,
-          permission: ["project"],
+          permission: ["PROJECT"],
         },
         component: () => import("/@/view/project/index.vue"),
-        children: [],
+        children: [
+          {
+            path: "",
+            meta: {
+              title: "任务",
+              hidden: true,
+              permission: ["TASK"],
+            },
+            component: () => import("/@/view/project/task/index.vue"),
+          },
+          {
+            path: "task",
+            meta: {
+              title: "任务",
+              hidden: true,
+              permission: ["TASK"],
+            },
+            component: () => import("/@/view/project/task/index.vue"),
+          },
+          {
+            path: "requirement",
+            meta: {
+              title: "需求",
+              hidden: true,
+              permission: ["REQUIREMENT"],
+            },
+            component: () => import("/@/view/project/requirement/index.vue"),
+          },
+          {
+            path: "version",
+            meta: {
+              title: "迭代",
+              hidden: true,
+              permission: ["VERSION"],
+            },
+            component: () => import("/@/view/project/version/index.vue"),
+          },
+          {
+            path: "bug",
+            meta: {
+              title: "缺陷",
+              hidden: true,
+              permission: ["BUG"],
+            },
+            component: () => import("/@/view/project/bug/index.vue"),
+          },
+          {
+            path: "storyWall",
+            meta: {
+              title: "故事墙",
+              hidden: true,
+              permission: ["STORY_WALL"],
+            },
+            component: () => import("/@/view/project/storyWall/index.vue"),
+          },
+          {
+            path: "charts",
+            meta: {
+              title: "报表",
+              hidden: true,
+              permission: ["CHARTS"],
+            },
+            component: () => import("/@/view/project/charts/index.vue"),
+          },
+          {
+            path: "setting",
+            meta: {
+              title: "项目设置",
+              hidden: true,
+              permission: ["PROJECT_SETTING"],
+            },
+            component: () => import("/@/view/project/setting/index.vue"),
+          },
+        ],
       },
       {
         path: "/setting",
@@ -53,7 +126,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
         meta: {
           title: "系统设置",
           icon: SettingOutlined,
-          permission: ["setting"],
+          permission: ["SETTING"],
         },
         component: () => import("/@/components/RouteView/index.vue"),
         children: [
@@ -62,21 +135,21 @@ export const asyncRouterMap: RouteRecordRaw[] = [
             name: "usersSetting",
             component: () =>
               import("/@/view/setting/user-management/index.vue"),
-            meta: { title: "用户管理", permission: ["setting"] },
+            meta: { title: "用户管理", permission: ["SETTING"] },
           },
           {
             path: "roles",
             name: "rolesSetting",
             component: () =>
               import("/@/view/setting/role-management/index.vue"),
-            meta: { title: "角色管理", permission: ["setting"] },
+            meta: { title: "角色管理", permission: ["SETTING"] },
           },
           {
             path: "authority",
             name: "authoritySetting",
             component: () =>
               import("/@/view/setting/authority-management/index.vue"),
-            meta: { title: "权限项管理", permission: ["setting"] },
+            meta: { title: "权限项管理", permission: ["SETTING"] },
           },
           {
             path: "system-info",
@@ -84,7 +157,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
             component: () => import("/@/view/setting/system-info/index.vue"),
             meta: {
               title: "系统设置",
-              permission: ["setting"],
+              permission: ["SETTING"],
             },
           },
         ],
@@ -94,7 +167,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
         name: "user",
         meta: {
           title: "用户设置",
-          permission: ["basic"],
+          permission: ["BASIC"],
           hidden: true,
         },
         component: () => import("/@/components/RouteView/index.vue"),
@@ -103,7 +176,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
             path: "setting",
             name: "userSetting",
             component: () => import("/@/view/user/setting.vue"),
-            meta: { title: "用户信息", permission: ["basic"] },
+            meta: { title: "用户信息", permission: ["BASIC"] },
           },
         ],
       },
@@ -111,7 +184,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
         path: "/404",
         name: "404",
         meta: {
-          permission: ["basic"],
+          permission: ["BASIC"],
           name: "404页",
           hidden: true,
         },
@@ -121,7 +194,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
         path: "/403",
         name: "403",
         meta: {
-          permission: ["basic"],
+          permission: ["BASIC"],
           name: "403页",
 
           hidden: true,
@@ -132,7 +205,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
         path: "/500",
         name: "500",
         meta: {
-          permission: ["basic"],
+          permission: ["BASIC"],
           name: "500页",
           hidden: true,
         },
