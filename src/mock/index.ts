@@ -32,7 +32,19 @@ Mock.mock("http://localhost:3000/userInfo", {
       "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
     token: "asdadasday12315xasdaadad",
     role: {
-      permissions: ["basic", "workplace", "project", "setting"],
+      permissions: [
+        "basic",
+        "workplace",
+        "project",
+        "setting",
+        "TASK",
+        "REQUIREMENT",
+        "VERSION",
+        "BUG",
+        "STORY_WALL",
+        "CHARTS",
+        "PROJECT_SETTING",
+      ],
     },
   },
 });
@@ -405,5 +417,22 @@ Mock.mock("http://localhost:3000/authority/all", {
         createTime: "2021-01-15 15:55:34",
       },
     ],
+  },
+});
+
+Mock.mock("http://localhost:3000/project/1", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    start: 0,
+    length: 3,
+    total: 3,
+    data: {
+      project_id: 1,
+      picUrl:
+        "https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png",
+      name: "项目名",
+      desc: "项目描述项目描述项目描述项目描述项目描述项目描述",
+    },
   },
 });
