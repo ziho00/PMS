@@ -33,10 +33,10 @@ Mock.mock("http://localhost:3000/userInfo", {
     token: "asdadasday12315xasdaadad",
     role: {
       permissions: [
-        "basic",
-        "workplace",
-        "project",
-        "setting",
+        "BASIC",
+        "WORKPLACE",
+        "PROJECT",
+        "SETTING",
         "TASK",
         "REQUIREMENT",
         "VERSION",
