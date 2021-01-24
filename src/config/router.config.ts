@@ -34,7 +34,18 @@ export const asyncRouterMap: RouteRecordRaw[] = [
           icon: ReadOutlined,
           permission: ["project"],
         },
-        component: () => import("/@/view/project-management/list.vue"),
+        component: () => import("/@/view/project-management/index.vue"),
+      },
+      {
+        path: "/:projectId",
+        name: "projectInfo",
+        meta: {
+          title: "项目信息",
+          hidden: true,
+          permission: ["project"],
+        },
+        component: () => import("/@/view/project/index.vue"),
+        children: [],
       },
       {
         path: "/setting",
