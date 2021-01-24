@@ -19,3 +19,15 @@ export const getTimeZone = (date?: Date) => {
   }
   return timeZone;
 };
+
+export const getPromissionTabs = (promission: string[], tabs: Array<any>) =>
+  tabs.filter((tab) => {
+    let isPromission = true;
+    for (let i = 0, l = tab.promission.length >> 0; i < l; i++) {
+      if (!promission.includes(tab.promission[i])) {
+        isPromission = false;
+        break;
+      }
+    }
+    return isPromission;
+  });
