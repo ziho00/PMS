@@ -10,7 +10,7 @@
       <div class="project-name">{{ projectInfo?.name }}</div>
     </div>
     <template #footer>
-      <a-tabs @change="callback" :defaultActiveKey="'TASK'">
+      <a-tabs @change="handleChangeTab" :activeKey="activeKey">
         <a-tab-pane v-for="tab in tabs" :key="tab.key" :tab="tab.label" />
       </a-tabs>
     </template>
@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { onBeforeMount, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { api } from "/@/http/api";
 import { getPromissionTabs } from "/@/utils";
@@ -35,7 +35,7 @@ const routes = [
   },
   {
     path: "/p",
-    breadcrumbName: "项目详情",
+    breadcrumbName: "项目",
   },
 ];
 
@@ -71,7 +71,7 @@ const _Tabs = [
     promission: ["CHARTS"],
   },
   {
-    label: "项目信息",
+    label: "项目设置",
     key: "setting",
     promission: ["PROJECT_SETTING"],
   },
@@ -80,9 +80,11 @@ const _Tabs = [
 export default {
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const store = useStore();
 
     const tabs = ref<Array<any>>([]);
+    const activeKey = ref<string>("task");
     const projectInfo = ref<object>(null);
 
     onBeforeMount(async () => {
@@ -95,10 +97,18 @@ export default {
       tabs.value = getPromissionTabs(roleRes.data.role.permissions, _Tabs);
     });
 
+    const handleChangeTab = (key) => {
+      const { projectId } = route.params;
+      activeKey.value = key;
+      router.push(`/${projectId}/${key}`);
+    };
+
     return {
       routes,
       projectInfo,
       tabs,
+      activeKey,
+      handleChangeTab,
     };
   },
 };

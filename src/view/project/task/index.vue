@@ -1,4 +1,6 @@
-<template></template>
+<template>
+  <a-card class="page-card"> </a-card>
+</template>
 
 <script lang="ts">
 export default {};
