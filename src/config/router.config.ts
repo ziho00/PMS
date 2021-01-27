@@ -54,6 +54,17 @@ export const asyncRouterMap: RouteRecordRaw[] = [
               permission: ["TASK"],
             },
             component: () => import("/@/view/project/task/index.vue"),
+            children: [
+              {
+                path: "",
+                meta: {
+                  title: "任务列表",
+                  hidden: true,
+                  permission: ["TASK"],
+                },
+                component: () => import("/@/view/project/task/Table.vue"),
+              },
+            ],
           },
           {
             path: "task",
@@ -63,6 +74,35 @@ export const asyncRouterMap: RouteRecordRaw[] = [
               permission: ["TASK"],
             },
             component: () => import("/@/view/project/task/index.vue"),
+            children: [
+              {
+                path: "",
+                meta: {
+                  title: "任务列表",
+                  hidden: true,
+                  permission: ["TASK"],
+                },
+                component: () => import("/@/view/project/task/Table.vue"),
+              },
+              {
+                path: "edit/:taskId",
+                meta: {
+                  title: "编辑任务",
+                  hidden: true,
+                  permission: ["TASK"],
+                },
+                component: () => import("/@/view/project/task/Edit.vue"),
+              },
+              {
+                path: "detail/:taskId",
+                meta: {
+                  title: "任务详情",
+                  hidden: true,
+                  permission: ["TASK"],
+                },
+                component: () => import("/@/view/project/task/Detail.vue"),
+              },
+            ],
           },
           {
             path: "requirement",

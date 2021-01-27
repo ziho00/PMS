@@ -14,7 +14,10 @@
       :reseting="queryLoading.reset"
     >
       <z-query-form-item label="权限项名称">
-        <a-input v-model:value="queryFormData.name" placeholder="权限项名称" />
+        <a-input
+          v-model:value="queryFormData.name"
+          placeholder="权限项名称关键字"
+        />
       </z-query-form-item>
     </z-query-form>
 

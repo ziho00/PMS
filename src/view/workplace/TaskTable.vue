@@ -18,6 +18,9 @@
     <template #priority="{ text }">
       <PriorityTag mode="task" :value="text" />
     </template>
+    <template #handler="{ text }">
+      {{ text?.username }}
+    </template>
   </a-table>
 </template>
 
@@ -62,7 +65,7 @@ const columns = [
     title: "处理人",
     dataIndex: "handler",
     key: "handler",
-    ellipsis: true,
+    slots: { customRender: "handler" },
   },
   {
     title: "预估工时",

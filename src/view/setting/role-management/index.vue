@@ -14,7 +14,10 @@
       :reseting="queryLoading.reset"
     >
       <z-query-form-item label="角色名称">
-        <a-input v-model:value="queryFormData.name" placeholder="角色名称" />
+        <a-input
+          v-model:value="queryFormData.name"
+          placeholder="角色名称关键字"
+        />
       </z-query-form-item>
     </z-query-form>
 
@@ -46,7 +49,9 @@
       }"
     >
       <template #operation="{ record }">
-        <a-button type="link" @click="handleEdit(record)">编辑</a-button>
+        <a-button type="link" size="small" @click="handleEdit(record)"
+          >编辑</a-button
+        >
         <span style="color: var(--remark-color)">|</span>
         <a-popconfirm
           title="确认删除？"
@@ -54,7 +59,7 @@
           cancel-text="否"
           @confirm="handleDeleteItem(record)"
         >
-          <a-button type="link"> 删除 </a-button>
+          <a-button type="link" size="small"> 删除 </a-button>
         </a-popconfirm>
       </template>
     </a-table>

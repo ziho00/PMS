@@ -16,7 +16,7 @@
       <z-query-form-item label="项目名称">
         <a-input
           v-model:value="queryFormData.projectName"
-          placeholder="项目名称"
+          placeholder="项目名称关键字"
         />
       </z-query-form-item>
       <z-query-form-item label="创建人">

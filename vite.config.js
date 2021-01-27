@@ -12,6 +12,6 @@ export default {
     "/@public/": path.resolve(__dirname, "./public/"),
   },
   optimizeDeps: {
-    include: ["ant-design-vue/es/locale/zh_CN"],
+    include: ["ant-design-vue/es/locale/zh_CN", "Quill"],
   },
 };

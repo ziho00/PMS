@@ -77,7 +77,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.z-queryForm {
-}
-</style>
+<style lang="scss" scoped></style>
