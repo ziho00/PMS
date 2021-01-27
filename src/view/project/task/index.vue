@@ -1,9 +1,9 @@
 <template>
-  <a-card class="page-card"> </a-card>
+  <router-view />
 </template>
 
-<script lang="ts">
+<script>
 export default {};
 </script>
 
-<style lang="scss" scoped></style>
+<style></style>

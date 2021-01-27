@@ -242,7 +242,14 @@ Mock.mock("http://localhost:3000/task/0", {
       {
         task_id: "10011",
         title: "完成工作台的项目、工作指数、消息部分模块",
-        handler: "曾梓豪",
+        handler: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "曾梓豪",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
         status: "0",
         priority: "1",
         planStartDate: "2020-01-07",
@@ -253,7 +260,14 @@ Mock.mock("http://localhost:3000/task/0", {
       {
         task_id: "100001",
         title: "登录页开发(包含注册模块)",
-        handler: "曾梓豪",
+        handler: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "曾梓豪",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
         status: "0",
         priority: "3",
         planStartDate: "2020-01-04",
@@ -262,6 +276,29 @@ Mock.mock("http://localhost:3000/task/0", {
         workload: 6,
       },
     ],
+  },
+});
+
+Mock.mock("http://localhost:3000/task/10011", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    task_id: "10011",
+    title: "完成工作台的项目、工作指数、消息部分模块",
+    handler: {
+      user_id: 1001,
+      phone: "17727261745",
+      email: "1253416625@qq.com",
+      username: "曾梓豪",
+      avatar:
+        "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+    },
+    status: "0",
+    priority: "1",
+    planStartDate: "2020-01-07",
+    planEndDate: "2020-01-07",
+    planWorkload: 10,
+    workload: 0,
   },
 });
 
