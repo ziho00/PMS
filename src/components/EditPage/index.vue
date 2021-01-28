@@ -7,6 +7,7 @@
       <div class="left">
         <slot name="content"></slot>
       </div>
+      <div class="line"></div>
       <div class="right">
         <slot name="extra"></slot>
       </div>
@@ -94,12 +95,22 @@ export default {
     padding: 0 24px;
     width: calc(100% - 350px);
   }
+  .line {
+    box-sizing: border-box;
+    position: absolute;
+    top: 50px;
+    right: 350px;
+    bottom: 50px;
+    width: 1px;
+    background: var(--border-color);
+    width: 1;
+  }
   .right {
     box-sizing: border-box;
     width: 350px;
+    height: 100%;
     float: right;
     padding: 0 24px;
-    border-left: 1px solid var(--border-color);
   }
 }
 </style>
