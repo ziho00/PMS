@@ -293,6 +293,7 @@ Mock.mock("http://localhost:3000/task/10011", {
       avatar:
         "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
     },
+    desc: "<p>asdasdasd</p><p>sdaaaaaaaaa</p>",
     status: "0",
     priority: "1",
     planStartDate: "2020-01-07",

@@ -9,7 +9,14 @@
           padding: '15px 0',
         }"
       >
-        <TitleInput v-model:value="taskInfo.title" />
+        <TitleInput
+          :style="{ marginBottom: '24px' }"
+          v-model:value="taskInfo.title"
+        />
+        <RichTextEditor
+          v-model:value="taskInfo.desc"
+          :options="{ placeholder: '任务描述...' }"
+        />
       </div>
     </template>
     <template #extra>
@@ -86,6 +93,7 @@ import { useRoute, useRouter } from "vue-router";
 import { reactive, ref, onBeforeMount, getCurrentInstance } from "vue";
 import EditPage from "/@/components/EditPage/index.vue";
 import TitleInput from "/@/components/TitleInput/index.vue";
+import RichTextEditor from "/@/components/RichTextEditor/index.vue";
 import moment from "moment";
 import { api } from "/@/http/api";
 const status = [
@@ -130,6 +138,7 @@ export default {
   components: {
     EditPage,
     TitleInput,
+    RichTextEditor,
   },
   setup() {
     const vm = getCurrentInstance();
@@ -157,9 +166,13 @@ export default {
         title.value = `编辑任务【ID:${taskId}】`;
         const res = await api.task.getTaskById({ task_id: taskId });
         Object.keys(taskInfo).map((key) => {
-          taskInfo[key] = res.data[key];
+          if (key === "planStartDate" || key === "planEndDate") {
+            taskInfo[key] = moment(res.data[key]);
+          } else {
+            taskInfo[key] = res.data[key];
+          }
         });
-        console.log(taskInfo);
+        console.log(taskInfo.desc);
       }
     });
 
@@ -198,6 +211,7 @@ export default {
           required: true,
           message: "请填写预计花费工时",
           trigger: "blur",
+          type: "number",
         },
       ],
       handler: [
