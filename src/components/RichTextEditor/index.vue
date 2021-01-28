@@ -1,33 +1,12 @@
 <template>
-  <div :id="`quill-${id}`" ref="editor"></div>
+  <div class="editor" :id="`editor-${id}`"></div>
 </template>
 
 <script lang="ts">
-import { ref, onMounted, getCurrentInstance, watch } from "vue";
+import { ref, getCurrentInstance, onMounted, watch } from "vue";
+import Editor from "wangeditor";
 
 let id = 0;
-const defaultOptions = {
-  theme: "snow",
-  modules: {
-    toolbar: [
-      ["bold", "italic", "underline", "strike"],
-      ["blockquote", "code-block"],
-      [{ header: 1 }, { header: 2 }],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
-      [{ indent: "-1" }, { indent: "+1" }],
-      [{ direction: "rtl" }],
-      [{ size: ["small", false, "large", "huge"] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ color: [] }, { background: [] }],
-      [{ font: [] }],
-      [{ align: [] }],
-      ["clean"],
-      ["link"],
-    ],
-  },
-  placeholder: "Insert text here ...",
-};
 export default {
   name: "RichTextEditor",
   props: {
@@ -38,59 +17,93 @@ export default {
     },
   },
   setup(props, ctx) {
-    const { value, options } = props;
-    id = id + 1;
-    const vm = getCurrentInstance();
     const editor = ref<object>(null);
-    const content = ref<string>("");
-    const _options = ref<object>(Object.assign({}, defaultOptions, options));
-
-    watch(
-      () => props.value,
-      (newVal) => {
-        const quill: any = editor.value;
-        if (quill) {
-          if (newVal && newVal !== content.value) {
-            content.value = newVal;
-            quill.pasteHTML(newVal);
-          } else if (!newVal) {
-            quill.setText("");
-          }
-        }
-      }
-    );
+    const content = ref<string>(null);
+    id = id + 1;
 
     onMounted(() => {
       init();
     });
 
+    watch(
+      () => props.value,
+      (newVal) => {
+        const _editor: any = editor.value;
+        if (_editor) {
+          if (newVal && newVal !== content.value) {
+            content.value = newVal;
+            _editor.txt.html(newVal);
+          } else if (!newVal) {
+            _editor.txt.html("");
+          }
+        }
+      }
+    );
+
     const init = () => {
-      const quill = new Quill(`#quill-${id}`, _options.value);
+      const { options, value } = props;
+      const _editor = new Editor(`#editor-${id}`);
+      _editor.config.focus = false;
+      _editor.config.placeholder =
+        (options && options.placeholder) || "请输入内容...";
+      console.log(options);
+      _editor.config.height = 500;
+
+      _editor.config.menus = [
+        "head",
+        "bold",
+        "fontSize",
+        "fontName",
+        "italic",
+        "underline",
+        "strikeThrough",
+        "indent",
+        "lineHeight",
+        "foreColor",
+        "backColor",
+        "link",
+        "list",
+        "todo",
+        "justify",
+        "quote",
+        "emoticon",
+        // "image",
+        // "video",
+        "table",
+        "code",
+        "splitLine",
+        "undo",
+        "redo",
+      ];
+      _editor.config.onchange = (newHtml) => {
+        content.value = newHtml;
+      };
+
+      _editor.create();
 
       if (value) {
-        quill.pasteHTML(value);
+        _editor.txt.html(value);
       }
 
-      quill.on("text-change", () => {
-        let html = (vm.refs.editor as HTMLElement).children[0].innerHTML;
-        const text = quill.getText();
-        if (html === "<p><br></p>") html = "";
-        content.value = html;
-        ctx.emit("update:value", content.value);
-        ctx.emit("change", { html, text, quill });
-      });
-
-      editor.value = quill;
+      editor.value = _editor;
     };
 
     return {
       id,
-      content,
       editor,
-      _options,
+      content,
     };
   },
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.editor {
+  div {
+    border: none !important;
+  }
+  &:nth-child(1) {
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+}
+</style>
