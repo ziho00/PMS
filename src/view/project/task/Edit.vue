@@ -14,6 +14,7 @@
           v-model:value="taskInfo.title"
         />
         <RichTextEditor
+          ref="richEditor"
           v-model:value="taskInfo.desc"
           :options="{ placeholder: '任务描述...' }"
         />
@@ -90,7 +91,7 @@
 
 <script lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { reactive, ref, onBeforeMount, getCurrentInstance } from "vue";
+import { reactive, ref, onBeforeMount, getCurrentInstance, VNode } from "vue";
 import EditPage from "/@/components/EditPage/index.vue";
 import TitleInput from "/@/components/TitleInput/index.vue";
 import RichTextEditor from "/@/components/RichTextEditor/index.vue";
@@ -178,8 +179,10 @@ export default {
 
     // 确认回调
     const handleConfirm = () => {
-      console.log(taskInfo);
+      const desc: any = (vm.refs.richEditor as any).content;
       (vm.refs.form as any).validate();
+      taskInfo.desc = desc;
+      console.log(taskInfo);
     };
 
     // 取消回调
