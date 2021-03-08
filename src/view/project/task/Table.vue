@@ -79,7 +79,11 @@
       size="small"
       rowKey="task_id"
       @change="handleTableChange"
-      :scroll="{ x: 1300 }"
+      :row-selection="{
+        selectedRowKeys: selectedRowKeys,
+        onChange: onSelectChange,
+      }"
+      :scroll="{ x: 1500 }"
     >
       <template #title="{ text, record }">
         <a :title="text" @click="toDetailPage(record)">{{ text }}</a>
