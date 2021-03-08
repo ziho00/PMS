@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { ref, getCurrentInstance, onMounted, watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 import Editor from "wangeditor";
 
 let id = 0;
@@ -11,6 +11,10 @@ export default {
   name: "RichTextEditor",
   props: {
     value: String,
+    focus: {
+      type: Boolean,
+      default: () => false,
+    },
     options: {
       type: Object,
       default: () => ({}),
@@ -41,9 +45,9 @@ export default {
     );
 
     const init = () => {
-      const { options, value } = props;
+      const { options, value, focus } = props;
       const _editor = new Editor(`#editor-${id}`);
-      _editor.config.focus = false;
+      _editor.config.focus = focus;
       _editor.config.placeholder =
         (options && options.placeholder) || "请输入内容...";
       console.log(options);
@@ -102,7 +106,7 @@ export default {
   div {
     border: none !important;
   }
-  &:nth-child(1) {
+  .w-e-toolbar {
     border-bottom: 1px solid var(--border-color) !important;
   }
 }
