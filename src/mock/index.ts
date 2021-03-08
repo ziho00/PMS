@@ -474,3 +474,152 @@ Mock.mock("http://localhost:3000/project/1", {
     },
   },
 });
+
+Mock.mock("http://localhost:3000/version/all", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    start: 0,
+    length: 3,
+    total: 3,
+    data: [
+      {
+        version_id: "10013",
+        version_num: "v1.0.2",
+        desc: "",
+        planStartDate: "2020-04-01",
+        planEndDate: "2021-05-01",
+      },
+      {
+        version_id: "10012",
+        version_num: "v1.0.1",
+        desc: "",
+        planStartDate: "2021-03-01",
+        planEndDate: "2021-04-01",
+      },
+      {
+        version_id: "10011",
+        version_num: "v1.0.0",
+        desc: "",
+        planStartDate: "2020-12-31",
+        planEndDate: "2021-03-01",
+      },
+    ],
+  },
+});
+
+Mock.mock("http://localhost:3000/bug/0", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    start: 0,
+    length: 2,
+    total: 2,
+    data: [
+      {
+        bug_id: "10011",
+        title: "注册功能点击确认后无响应",
+        handler: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "曾梓豪",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
+        creater: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "测试人员",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
+        version_id: "10013",
+        version: {
+          version_id: "10013",
+          version_num: "v1.0.2",
+          desc: "",
+          planStartDate: "2020-04-01",
+          planEndDate: "2021-05-01",
+        },
+        module: "注册功能",
+        status: "0",
+        priority: "1",
+        createTime: "2020-12-31 15:55:30",
+        updateTime: "2020-12-31 15:55:30",
+      },
+      {
+        bug_id: "100001",
+        title: "未登录情况可以进入首页",
+        handler: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "曾梓豪",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
+        creater: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "测试人员",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
+        version_id: "10013",
+        version: {
+          version_id: "10013",
+          version_num: "v1.0.2",
+          desc: "",
+          planStartDate: "2020-04-01",
+          planEndDate: "2021-05-01",
+        },
+        module: "首页",
+        status: "0",
+        priority: "3",
+        createTime: "2020-12-31 15:11:28",
+        updateTime: "2020-12-31 15:11:28",
+      },
+    ],
+  },
+});
+
+Mock.mock("http://localhost:3000/bug/10011", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    bug_id: "10011",
+    title: "注册功能点击确认后无响应",
+    handler: {
+      user_id: 1001,
+      phone: "17727261745",
+      email: "1253416625@qq.com",
+      username: "曾梓豪",
+      avatar:
+        "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+    },
+    creater: {
+      user_id: 1001,
+      phone: "17727261745",
+      email: "1253416625@qq.com",
+      username: "测试人员",
+      avatar:
+        "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+    },
+    version_id: "10013",
+    version: {
+      version_id: "10013",
+      version_num: "v1.0.2",
+      desc: "",
+      planStartDate: "2020-04-01",
+      planEndDate: "2021-05-01",
+    },
+    module: "注册功能",
+    status: "0",
+    priority: "1",
+    createTime: "2020-12-31 15:55:30",
+    updateTime: "2020-12-31 15:55:30",
+  },
+});
