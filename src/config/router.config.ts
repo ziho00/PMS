@@ -130,6 +130,35 @@ export const asyncRouterMap: RouteRecordRaw[] = [
               permission: ["BUG"],
             },
             component: () => import("/@/view/project/bug/index.vue"),
+            children: [
+              {
+                path: "",
+                meta: {
+                  title: "缺陷列表",
+                  hidden: true,
+                  permission: ["BUG"],
+                },
+                component: () => import("/@/view/project/bug/Table.vue"),
+              },
+              {
+                path: "edit/:bugId",
+                meta: {
+                  title: "编辑缺陷",
+                  hidden: true,
+                  permission: ["BUG"],
+                },
+                component: () => import("/@/view/project/bug/Edit.vue"),
+              },
+              {
+                path: "detail/:bugId",
+                meta: {
+                  title: "缺陷详情",
+                  hidden: true,
+                  permission: ["BUG"],
+                },
+                component: () => import("/@/view/project/bug/Detail.vue"),
+              },
+            ],
           },
           {
             path: "storyWall",
@@ -138,7 +167,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
               hidden: true,
               permission: ["STORY_WALL"],
             },
-            component: () => import("/@/view/project/storyWall/index.vue"),
+            component: () => import("/@/view/project/story-wall/index.vue"),
           },
           {
             path: "charts",
