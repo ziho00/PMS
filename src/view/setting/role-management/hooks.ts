@@ -83,7 +83,7 @@ function useModal() {
   const selectorLoading = ref<boolean>(false);
   const role = reactive({
     role_id: "",
-    name: "",
+    role_name: "",
     promission: [],
   });
 
