@@ -2,45 +2,45 @@ import { reactive, ref, onBeforeMount, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { api } from "/@/http/api";
 
+const status = [
+  {
+    label: "开发确认",
+    key: "0",
+  },
+  {
+    label: "进行中",
+    key: "1",
+  },
+  {
+    label: "已关闭",
+    key: "2",
+  },
+  {
+    label: "已修复",
+    key: "3",
+  },
+];
+
+const priority = [
+  {
+    label: "低",
+    key: "0",
+  },
+  {
+    label: "中",
+    key: "1",
+  },
+  {
+    label: "高",
+    key: "2",
+  },
+  {
+    label: "紧急",
+    key: "3",
+  },
+];
+
 function useQueryForm() {
-  const status = [
-    {
-      label: "开发确认",
-      key: 0,
-    },
-    {
-      label: "进行中",
-      key: 1,
-    },
-    {
-      label: "已关闭",
-      key: 2,
-    },
-    {
-      label: "已修复",
-      key: 3,
-    },
-  ];
-
-  const priority = [
-    {
-      label: "低",
-      key: 0,
-    },
-    {
-      label: "中",
-      key: 1,
-    },
-    {
-      label: "高",
-      key: 2,
-    },
-    {
-      label: "紧急",
-      key: 3,
-    },
-  ];
-
   const queryLoading = reactive({ search: false, reset: false });
   const queryFormData = reactive({
     title: "",
@@ -218,45 +218,8 @@ function useVersion(projectId) {
   };
 }
 
+// Edit.vue
 function useForm() {
-  const status = [
-    {
-      label: "开发确认",
-      key: "0",
-    },
-    {
-      label: "进行中",
-      key: "1",
-    },
-    {
-      label: "已关闭",
-      key: "2",
-    },
-    {
-      label: "已修复",
-      key: "3",
-    },
-  ];
-
-  const priority = [
-    {
-      label: "低",
-      key: "0",
-    },
-    {
-      label: "中",
-      key: "1",
-    },
-    {
-      label: "高",
-      key: "2",
-    },
-    {
-      label: "紧急",
-      key: "3",
-    },
-  ];
-
   const vm = getCurrentInstance();
   const route = useRoute();
   const router = useRouter();
