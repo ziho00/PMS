@@ -8,11 +8,13 @@ import { onBeforeMount, ref } from "vue";
 const COLOR = {
   task: ["default", "blue", "green", "default"],
   bug: ["green", "green", "default", "default"],
+  requirement: ["blue", "green", "green", "default", "default"],
 };
 
 const TEXT = {
   task: ["未开始", "进行中", "已完成", "已关闭"],
   bug: ["开发确认", "进行中", "已关闭", "已修复"],
+  requirement: ["待评审", "开发确认", "开发中", "已实现", "已关闭"],
 };
 
 export default {
