@@ -592,6 +592,7 @@ Mock.mock("http://localhost:3000/bug/10011", {
   data: {
     bug_id: "10011",
     title: "注册功能点击确认后无响应",
+    desc: "<p>asdasdasd</p><p>sdaaaaaaaaa</p>",
     handler: {
       user_id: 1001,
       phone: "17727261745",
@@ -621,5 +622,130 @@ Mock.mock("http://localhost:3000/bug/10011", {
     priority: "1",
     createTime: "2020-12-31 15:55:30",
     updateTime: "2020-12-31 15:55:30",
+  },
+});
+
+Mock.mock("http://localhost:3000/requirement/all", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    start: 0,
+    length: 2,
+    total: 2,
+    data: [
+      {
+        requirement_id: "10010",
+        title: "工作台模块-任务",
+        desc: "<p>asdasdasd</p><p>sdaaaaaaaaa</p>",
+        handler: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "曾梓豪",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
+        creater: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "Brian Walker",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
+        version_id: "10013",
+        version: {
+          version_id: "10013",
+          version_num: "v1.0.2",
+          desc: "",
+          planStartDate: "2020-04-01",
+          planEndDate: "2021-05-01",
+        },
+        status: "0",
+        priority: "1",
+        createTime: "2020-12-31 15:55:30",
+        updateTime: "2020-12-31 15:55:30",
+        planStartDate: "2020-12-31",
+        planEndDate: "2021-01-04",
+        planWorkload: 24,
+      },
+      {
+        requirement_id: "10001",
+        title: "工作台模块-消息",
+        desc: "<p>asdasdasd</p><p>sdaaaaaaaaa</p>",
+        handler: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "曾梓豪",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
+        creater: {
+          user_id: 1001,
+          phone: "17727261745",
+          email: "1253416625@qq.com",
+          username: "Angela Young ",
+          avatar:
+            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+        },
+        version_id: "10013",
+        version: {
+          version_id: "10013",
+          version_num: "v1.0.2",
+          desc: "",
+          planStartDate: "2020-04-01",
+          planEndDate: "2021-05-01",
+        },
+        status: "0",
+        priority: "3",
+        createTime: "2021-01-05 14:35:12",
+        updateTime: "2021-01-05 14:35:12",
+        planStartDate: "2021-01-05",
+        planEndDate: "2020-01-08",
+        planWorkload: 24,
+      },
+    ],
+  },
+});
+
+Mock.mock("http://localhost:3000/requirement/10010", {
+  code: 0,
+  msg: "成功!",
+  data: {
+    requirement_id: "10010",
+    title: "工作台模块-任务",
+    desc: "<p>asdasdasd</p><p>sdaaaaaaaaa</p>",
+    handler: {
+      user_id: 1001,
+      phone: "17727261745",
+      email: "1253416625@qq.com",
+      username: "曾梓豪",
+      avatar:
+        "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+    },
+    creater: {
+      user_id: 1001,
+      phone: "17727261745",
+      email: "1253416625@qq.com",
+      username: "测试人员",
+      avatar:
+        "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
+    },
+    version_id: "10013",
+    version: {
+      version_id: "10013",
+      version_num: "v1.0.2",
+      desc: "",
+      planStartDate: "2020-04-01",
+      planEndDate: "2021-05-01",
+    },
+    status: "0",
+    priority: "1",
+    createTime: "2020-12-31 15:55:30",
+    updateTime: "2020-12-31 15:55:30",
+    planStartDate: "2020-12-31",
+    planEndDate: "2021-01-04",
+    planWorkload: 24,
   },
 });
