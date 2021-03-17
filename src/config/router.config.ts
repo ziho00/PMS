@@ -112,6 +112,37 @@ export const asyncRouterMap: RouteRecordRaw[] = [
               permission: ["REQUIREMENT"],
             },
             component: () => import("/@/view/project/requirement/index.vue"),
+            children: [
+              {
+                path: "",
+                meta: {
+                  title: "需求列表",
+                  hidden: true,
+                  permission: ["REQUIREMENT"],
+                },
+                component: () =>
+                  import("/@/view/project/requirement/Table.vue"),
+              },
+              {
+                path: "detail/:requirement_id",
+                meta: {
+                  title: "需求详情",
+                  hidden: true,
+                  permission: ["REQUIREMENT"],
+                },
+                component: () =>
+                  import("/@/view/project/requirement/Detail.vue"),
+              },
+              {
+                path: "edit/:requirement_id",
+                meta: {
+                  title: "编辑需求",
+                  hidden: true,
+                  permission: ["REQUIREMENT"],
+                },
+                component: () => import("/@/view/project/requirement/Edit.vue"),
+              },
+            ],
           },
           {
             path: "version",
