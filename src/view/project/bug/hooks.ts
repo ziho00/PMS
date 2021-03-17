@@ -1,5 +1,4 @@
-import { reactive, ref, onBeforeMount, getCurrentInstance } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { reactive, ref, onBeforeMount } from "vue";
 import { api } from "/@/http/api";
 
 function useQueryForm() {
@@ -211,118 +210,7 @@ function useVersion(projectId) {
     }));
   };
 
-  return {
-    versionList,
-    versionOptions,
-    getVersions,
-  };
+  return { versionList, versionOptions, getVersions };
 }
 
-function useForm() {
-  const status = [
-    {
-      label: "开发确认",
-      key: "0",
-    },
-    {
-      label: "进行中",
-      key: "1",
-    },
-    {
-      label: "已关闭",
-      key: "2",
-    },
-    {
-      label: "已修复",
-      key: "3",
-    },
-  ];
-
-  const priority = [
-    {
-      label: "低",
-      key: "0",
-    },
-    {
-      label: "中",
-      key: "1",
-    },
-    {
-      label: "高",
-      key: "2",
-    },
-    {
-      label: "紧急",
-      key: "3",
-    },
-  ];
-
-  const vm = getCurrentInstance();
-  const route = useRoute();
-  const router = useRouter();
-
-  const title = ref<string>("");
-  const bugInfo = reactive({
-    title: "",
-    desc: "",
-    requirement: null,
-    status: "0",
-    priority: "0",
-    handler: null,
-    version_id: "",
-    module: "",
-  });
-
-  const { projectId } = route.params;
-  const { versionOptions } = useVersion(projectId);
-
-  onBeforeMount(async () => {
-    const { bugId } = route.params;
-    if (bugId === "create") {
-      title.value = "创建缺陷";
-    } else {
-      title.value = `编辑缺陷【ID:${bugId}】`;
-      const res = await api.bug.getBugById({ bug_id: bugId });
-      Object.keys(bugInfo).map((key) => {
-        bugInfo[key] = res.data[key];
-      });
-    }
-  });
-
-  // 确认回调
-  const handleConfirm = () => {
-    const desc: any = (vm.refs.richEditor as any).content;
-    (vm.refs.form as any).validate();
-    bugInfo.desc = desc;
-    console.log(bugInfo);
-  };
-
-  // 取消回调
-  const handleCancel = () => {
-    router.back();
-  };
-
-  const rules = {
-    handler: [
-      {
-        required: true,
-        message: "请选择处理人",
-        trigger: "change",
-        type: "object",
-      },
-    ],
-  };
-
-  return {
-    status,
-    priority,
-    title,
-    rules,
-    bugInfo,
-    versionOptions,
-    handleConfirm,
-    handleCancel,
-  };
-}
-
-export { useQueryForm, useTable, useVersion, useForm };
+export { useQueryForm, useTable, useVersion };
