@@ -8,11 +8,13 @@ import { onBeforeMount, ref } from "vue";
 const COLOR = {
   task: ["#d9d9d9", "#87d068", "#f50", "#f5222d"],
   bug: ["#d9d9d9", "#87d068", "#f50", "#f5222d"],
+  requirement: ["#d9d9d9", "#87d068", "#f50", "#f5222d"],
 };
 
 const TEXT = {
   task: ["低", "中", "高", "紧急"],
   bug: ["低", "中", "高", "紧急"],
+  requirement: ["低", "中", "高", "紧急"],
 };
 
 export default {
