@@ -2,6 +2,7 @@ import { reactive, ref, onBeforeMount, getCurrentInstance, VNode } from "vue";
 import { api } from "/@/http/api";
 import { useRoute, useRouter } from "vue-router";
 import moment from "moment";
+import router from "/@/router";
 
 // Table.vue query state & handler
 function useQueryForm() {
@@ -148,6 +149,8 @@ function useTable(queryFormData) {
       slots: { customRender: "operation" },
     },
   ];
+  const route = useRoute();
+  const router = useRouter();
   const loading = ref<boolean>(false);
   const dataSource = ref<Array<any>>([]);
   const selectedRowKeys = ref<Array<any>>([]);
@@ -183,7 +186,14 @@ function useTable(queryFormData) {
   };
 
   const toDetailPage = (record) => {
-    console.log(record);
+    const { projectId } = route.params;
+    router.push(`/${projectId}/task/detail/${record.task_id}`);
+  };
+
+  // 编辑
+  const handleEdit = (record) => {
+    const { projectId } = route.params;
+    router.push(`/${projectId}/task/edit/${record.task_id}`);
   };
 
   return {
@@ -196,6 +206,7 @@ function useTable(queryFormData) {
     refresh,
     columns,
     toDetailPage,
+    handleEdit,
   };
 }
 
@@ -353,4 +364,48 @@ function useForm() {
   };
 }
 
-export { useQueryForm, useTable, useForm };
+function useTask() {
+  const route = useRoute();
+  const router = useRouter();
+  const { projectId, taskId } = route.params;
+  const title = ref("");
+  const taskInfo = reactive({
+    requierment: null,
+    title: "",
+    desc: "",
+    planStartDate: "",
+    planEndDate: "",
+    planWorkload: 0,
+    priority: 0,
+    status: 0,
+    task_id: "",
+    workload: 0,
+    handler: null,
+  });
+
+  onBeforeMount(async () => {
+    const res = await api.task.getTaskById({ task_id: taskId });
+    console.log(res);
+    Object.keys(taskInfo).map((key) => {
+      taskInfo[key] = res.data[key];
+    });
+    title.value = `【ID：${taskInfo.task_id}】 ${taskInfo.title}`;
+  });
+
+  const toEdit = () => {
+    router.push(`/${projectId}/task/edit/${taskId}`);
+  };
+
+  const goBack = () => {
+    router.back();
+  };
+
+  return {
+    title,
+    taskInfo,
+    toEdit,
+    goBack,
+  };
+}
+
+export { useQueryForm, useTable, useForm, useTask };
