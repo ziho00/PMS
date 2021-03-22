@@ -171,6 +171,7 @@ export default {
       onSelectChange,
       refresh,
       columns,
+      handleEdit,
       toDetailPage,
     } = useTable(queryFormData);
 
@@ -206,12 +207,6 @@ export default {
     const handleCreateItem = () => {
       const { projectId } = route.params;
       router.push(`/${projectId}/task/edit/create`);
-    };
-
-    // 编辑
-    const handleEdit = (record) => {
-      const { projectId } = route.params;
-      router.push(`/${projectId}/task/edit/${record.task_id}`);
     };
 
     // 删除
