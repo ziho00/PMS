@@ -7,12 +7,15 @@
       <div class="left">
         <slot name="content"></slot>
       </div>
-      <div class="line"></div>
+      <div
+        class="line"
+        :style="{ top: header ? '50px' : 0, bottom: footer ? '50px' : 0 }"
+      ></div>
       <div class="right">
         <slot name="extra"></slot>
       </div>
     </div>
-    <div class="footer" v-if="header">
+    <div class="footer" v-if="footer">
       <div :style="{ float: 'right' }">
         <a-button @click="cancel">{{ cancelText }}</a-button>
         <a-button
@@ -98,9 +101,7 @@ export default {
   .line {
     box-sizing: border-box;
     position: absolute;
-    top: 50px;
     right: 350px;
-    bottom: 50px;
     width: 1px;
     background: var(--border-color);
     width: 1;
