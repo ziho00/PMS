@@ -199,7 +199,6 @@ function useTable(queryFormData) {
 
   const toDetailPage = (record) => {
     const { projectId } = route.params;
-    console.log(record.requirement_id, record);
     router.push(`/${projectId}/requirement/detail/${record.requirement_id}`);
   };
 
@@ -262,13 +261,14 @@ function useForm() {
   const { versionOptions } = useVersion(projectId);
 
   onBeforeMount(async () => {
-    const { requirement_id } = route.params;
-    if (requirement_id === "create") {
+    const { requirementId } = route.params;
+    if (requirementId === "create") {
       title.value = "创建需求";
     } else {
-      title.value = `编辑需求【ID:${requirement_id}】`;
-      // const res = await api.requirement.getRequirementById({ requirement_id });
-      const res = await api.requirement.getRequirementById({ requirement_id });
+      title.value = `编辑需求【ID:${requirementId}】`;
+      const res = await api.requirement.getRequirementById({
+        requirement_id: requirementId,
+      });
       Object.keys(requirementInfo).map((key) => {
         if (key === "planStartDate" || key === "planEndDate") {
           requirementInfo[key] = moment(res.data[key]);
@@ -354,7 +354,7 @@ function useForm() {
 function useRequirement() {
   const route = useRoute();
   const router = useRouter();
-  const { projectId, requirement_id } = route.params;
+  const { projectId, requirementId } = route.params;
   const title = ref("");
   const requirement = reactive({
     title: "",
@@ -375,15 +375,17 @@ function useRequirement() {
   });
 
   onBeforeMount(async () => {
-    const res = await api.requirement.getRequirementById({ requirement_id });
+    const res = await api.requirement.getRequirementById({
+      requirement_id: requirementId,
+    });
     Object.keys(requirement).map((key) => {
       requirement[key] = res.data[key];
     });
-    title.value = `【ID：${requirement_id}】 ${requirement.title}`;
+    title.value = `【ID：${requirementId}】 ${requirement.title}`;
   });
 
   const toEdit = () => {
-    router.push(`/${projectId}/requirement/edit/${requirement_id}`);
+    router.push(`/${projectId}/requirement/edit/${requirementId}`);
   };
 
   const goBack = () => {

@@ -60,6 +60,12 @@
         <a-form-item label="计划结束" name="planEndDate">
           {{ requirement.planEndDate || "--" }}
         </a-form-item>
+        <a-form-item label="创建时间" name="createTime">
+          {{ requirement.createTime || "--" }}
+        </a-form-item>
+        <a-form-item label="更新时间" name="updateTime">
+          {{ requirement.updateTime || "--" }}
+        </a-form-item>
       </a-form>
     </template>
   </EditPage>
