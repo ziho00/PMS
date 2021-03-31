@@ -124,7 +124,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
                   import("/@/view/project/requirement/Table.vue"),
               },
               {
-                path: "detail/:requirement_id",
+                path: "detail/:requirementId",
                 meta: {
                   title: "需求详情",
                   hidden: true,
@@ -134,7 +134,7 @@ export const asyncRouterMap: RouteRecordRaw[] = [
                   import("/@/view/project/requirement/Detail.vue"),
               },
               {
-                path: "edit/:requirement_id",
+                path: "edit/:requirementId",
                 meta: {
                   title: "编辑需求",
                   hidden: true,
