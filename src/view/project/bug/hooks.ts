@@ -144,6 +144,8 @@ function useTable(queryFormData) {
       width: 150,
     },
   ];
+  const route = useRoute();
+  const router = useRouter();
   const loading = ref<boolean>(false);
   const dataSource = ref<Array<any>>([]);
   const selectedRowKeys = ref<Array<any>>([]);
@@ -179,7 +181,8 @@ function useTable(queryFormData) {
   };
 
   const toDetailPage = (record) => {
-    console.log(record);
+    const { projectId } = route.params;
+    router.push(`/${projectId}/bug/detail/${record.bug_id}`);
   };
 
   return {
@@ -288,4 +291,47 @@ function useForm() {
   };
 }
 
-export { useQueryForm, useTable, useVersion, useForm };
+function useBug() {
+  const route = useRoute();
+  const router = useRouter();
+  const { projectId, bugId } = route.params;
+  const title = ref("");
+  const bug = reactive({
+    title: "",
+    desc: "",
+    priority: 0,
+    status: 0,
+    bug_id: "",
+    workload: 0,
+    handler: null,
+    creater: null,
+    version_id: "",
+    version: "",
+    createTime: "",
+    updateTime: "",
+  });
+
+  onBeforeMount(async () => {
+    const res = await api.bug.getBugById({ bug_id: bugId });
+    Object.keys(bug).map((key) => {
+      bug[key] = res.data[key];
+    });
+    title.value = `【ID：${bugId}】 ${bug.title}`;
+  });
+
+  const toEdit = () => {
+    router.push(`/${projectId}/bug/edit/${bugId}`);
+  };
+
+  const goBack = () => {
+    router.back();
+  };
+  return {
+    title,
+    bug,
+    toEdit,
+    goBack,
+  };
+}
+
+export { useQueryForm, useTable, useVersion, useForm, useBug };
