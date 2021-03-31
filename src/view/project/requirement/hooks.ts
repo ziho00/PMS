@@ -2,6 +2,7 @@ import { reactive, ref, onBeforeMount, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { api } from "/@/http/api";
 import moment from "moment";
+import router from "/@/router";
 const status = [
   {
     label: "待评审",
@@ -160,6 +161,8 @@ function useTable(queryFormData) {
       width: 150,
     },
   ];
+  const route = useRoute();
+  const router = useRouter();
   const loading = ref<boolean>(false);
   const dataSource = ref<Array<any>>([]);
   const selectedRowKeys = ref<Array<any>>([]);
@@ -195,7 +198,9 @@ function useTable(queryFormData) {
   };
 
   const toDetailPage = (record) => {
-    console.log(record);
+    const { projectId } = route.params;
+    console.log(record.requirement_id, record);
+    router.push(`/${projectId}/requirement/detail/${record.requirement_id}`);
   };
 
   return {
@@ -263,7 +268,7 @@ function useForm() {
     } else {
       title.value = `编辑需求【ID:${requirement_id}】`;
       // const res = await api.requirement.getRequirementById({ requirement_id });
-      const res = await api.requirement.getRequirementById();
+      const res = await api.requirement.getRequirementById({ requirement_id });
       Object.keys(requirementInfo).map((key) => {
         if (key === "planStartDate" || key === "planEndDate") {
           requirementInfo[key] = moment(res.data[key]);
@@ -346,4 +351,50 @@ function useForm() {
   };
 }
 
-export { useQueryForm, useTable, useForm };
+function useRequirement() {
+  const route = useRoute();
+  const router = useRouter();
+  const { projectId, requirement_id } = route.params;
+  const title = ref("");
+  const requirement = reactive({
+    title: "",
+    desc: "",
+    planStartDate: "",
+    planEndDate: "",
+    planWorkload: 0,
+    priority: 0,
+    status: 0,
+    requirement_id: "",
+    workload: 0,
+    handler: null,
+    creater: null,
+    version_id: "",
+    version: "",
+    createTime: "",
+    updateTime: "",
+  });
+
+  onBeforeMount(async () => {
+    const res = await api.requirement.getRequirementById({ requirement_id });
+    Object.keys(requirement).map((key) => {
+      requirement[key] = res.data[key];
+    });
+    title.value = `【ID：${requirement_id}】 ${requirement.title}`;
+  });
+
+  const toEdit = () => {
+    router.push(`/${projectId}/requirement/edit/${requirement_id}`);
+  };
+
+  const goBack = () => {
+    router.back();
+  };
+  return {
+    title,
+    requirement,
+    toEdit,
+    goBack,
+  };
+}
+
+export { useQueryForm, useTable, useForm, useRequirement };

@@ -90,24 +90,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.header-container {
-  position: relative;
-  padding: 0 24px;
-  .header-title {
-    line-height: 50px;
-    font-size: 18px;
-    font-weight: 600;
-    max-width: calc(100% - 350px);
-  }
-  .buttons {
-    position: absolute;
-    top: 9px;
-    right: 24px;
-
-    .ant-btn {
-      margin-left: 14px;
-    }
-  }
-}
-</style>
+<style lang="scss"></style>
