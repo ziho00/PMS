@@ -15,6 +15,10 @@ export default {
       type: Boolean,
       default: () => false,
     },
+    height: {
+      type: Number,
+      default: 500,
+    },
     options: {
       type: Object,
       default: () => ({}),
@@ -50,8 +54,7 @@ export default {
       _editor.config.focus = focus;
       _editor.config.placeholder =
         (options && options.placeholder) || "请输入内容...";
-      console.log(options);
-      _editor.config.height = 500;
+      _editor.config.height = props.height;
 
       _editor.config.menus = [
         "head",
