@@ -163,8 +163,8 @@ export default {
       Object.keys(version).map((key) => {
         version[key] = "";
       });
-      visible.value = true;
       isEdit.value = false;
+      visible.value = true;
     };
 
     // 批量删除
