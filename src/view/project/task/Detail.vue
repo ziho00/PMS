@@ -21,7 +21,9 @@
           <a-tab-pane key="desc" tab="任务描述"
             ><div v-html="taskInfo.desc"></div
           ></a-tab-pane>
-          <a-tab-pane key="workload" tab="花费详情" force-render></a-tab-pane>
+          <a-tab-pane key="workload" tab="花费详情" force-render>
+            <Workload />
+          </a-tab-pane>
         </a-tabs>
       </div>
     </template>
@@ -68,11 +70,13 @@ import EditPage from "/@/components/EditPage/index.vue";
 import { useTask } from "./hooks";
 import StateTag from "/@/components/StateTag/index.vue";
 import PriorityTag from "/@/components/PriorityTag/index.vue";
+import Workload from "./detail_workload.vue";
 export default {
   components: {
     EditPage,
     StateTag,
     PriorityTag,
+    Workload,
   },
   setup() {
     const { title, taskInfo, toEdit, goBack } = useTask();

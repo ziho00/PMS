@@ -408,4 +408,46 @@ function useTask() {
   };
 }
 
-export { useQueryForm, useTable, useForm, useTask };
+function useWrokload() {
+  const dataSource = ref([]);
+  const isEdit = ref(false);
+  const visible = ref(false);
+  const workloadInfo = reactive({
+    workload_id: "",
+    desc: "",
+    workload: 0,
+  });
+
+  onBeforeMount(async () => {
+    const res = await api.task.getWorkloadRecords();
+    dataSource.value = res.data;
+  });
+
+  const handleAdd = () => {
+    isEdit.value = false;
+    visible.value = true;
+  };
+
+  const handleEdit = (record) => {
+    visible.value = true;
+    isEdit.value = true;
+    Object.keys(workloadInfo).map((key) => {
+      workloadInfo[key] = record[key];
+    });
+  };
+
+  const handleDelete = (record) => {
+    console.log(record);
+  };
+  return {
+    isEdit,
+    visible,
+    dataSource,
+    handleAdd,
+    handleEdit,
+    handleDelete,
+    workloadInfo,
+  };
+}
+
+export { useQueryForm, useTable, useForm, useTask, useWrokload };
