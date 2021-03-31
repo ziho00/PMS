@@ -311,6 +311,25 @@ function useBug() {
     updateTime: "",
   });
 
+  const stateOptions = ref([
+    {
+      label: "开发确认",
+      key: "0",
+    },
+    {
+      label: "进行中",
+      key: "1",
+    },
+    {
+      label: "已关闭",
+      key: "2",
+    },
+    {
+      label: "已修复",
+      key: "3",
+    },
+  ]);
+
   onBeforeMount(async () => {
     const res = await api.bug.getBugById({ bug_id: bugId });
     Object.keys(bug).map((key) => {
@@ -331,6 +350,7 @@ function useBug() {
     bug,
     toEdit,
     goBack,
+    stateOptions,
   };
 }
 
