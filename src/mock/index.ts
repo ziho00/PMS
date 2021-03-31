@@ -299,7 +299,7 @@ Mock.mock("http://localhost:3000/task/10011", {
     planStartDate: "2020-01-07",
     planEndDate: "2020-01-07",
     planWorkload: 10,
-    workload: 0,
+    workload: 8,
   },
 });
 
