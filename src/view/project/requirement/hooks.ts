@@ -374,6 +374,29 @@ function useRequirement() {
     updateTime: "",
   });
 
+  const stateOptions = ref([
+    {
+      key: "0",
+      label: "未评审",
+    },
+    {
+      key: "1",
+      label: "开发确认",
+    },
+    {
+      key: "2",
+      label: "开发中",
+    },
+    {
+      key: "3",
+      label: "已实现",
+    },
+    {
+      key: "4",
+      label: "已关闭",
+    },
+  ]);
+
   onBeforeMount(async () => {
     const res = await api.requirement.getRequirementById({
       requirement_id: requirementId,
@@ -394,6 +417,7 @@ function useRequirement() {
   return {
     title,
     requirement,
+    stateOptions,
     toEdit,
     goBack,
   };
