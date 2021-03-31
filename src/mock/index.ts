@@ -749,3 +749,31 @@ Mock.mock("http://localhost:3000/requirement/10010", {
     planWorkload: 24,
   },
 });
+
+Mock.mock("http://localhost:3000/task/worklaod", {
+  code: 0,
+  msg: "成功!",
+  data: [
+    {
+      id: "10011",
+      workload: 5,
+      createTime: "2021-03-31 11:55:30",
+      updateTime: "2021-03-31 11:55:30",
+      desc: "1.完成 xxx 模块代码实现 2.完成代码自测",
+    },
+    {
+      id: "10012",
+      workload: 2,
+      createTime: "2021-03-31 11:30:30",
+      updateTime: "2021-03-31 11:30:30",
+      desc: "制定开发任务",
+    },
+    {
+      id: "10013",
+      workload: 1,
+      createTime: "2021-03-31 10:35:33",
+      updateTime: "2021-03-31 10:35:33",
+      desc: "需求评审",
+    },
+  ],
+});
