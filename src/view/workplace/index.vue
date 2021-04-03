@@ -99,18 +99,8 @@
         :xs="24"
       >
         <a-card
-          class="work-state-margin-top"
-          title="工作指数"
-          :bordered="false"
-          :body-style="{ padding: '15px' }"
-          :loading="loading.workState"
-        >
-        </a-card>
-
-        <a-card
           title="消息"
           :bordered="false"
-          :style="{ marginTop: '24px' }"
           :body-style="{ padding: '15px' }"
           :loading="loading.workState"
         >
