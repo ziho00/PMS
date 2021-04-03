@@ -21,7 +21,7 @@
           <a-tab-pane key="desc" tab="需求描述">
             <div v-html="requirement.desc"></div>
           </a-tab-pane>
-          <a-tab-pane key="tasks" tab="关联任务" force-render></a-tab-pane>
+          <!-- <a-tab-pane key="tasks" tab="关联任务" force-render></a-tab-pane> -->
         </a-tabs>
       </div>
       <Comment
